@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Cat Explorer</string>
+    <string name="fact">Fact</string>
+    <string name="wallpapers">wallpapers</string>
+    <string name="favourite">Favourite</string>
+</resources>
