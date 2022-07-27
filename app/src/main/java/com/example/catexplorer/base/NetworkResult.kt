@@ -1,4 +1,4 @@
-package com.example.catexplorer
+package com.example.catexplorer.base
 
 sealed class NetworkResult<T>(val data: T? = null, val message: String? = null) {
     class Success<T>(data: T?) : NetworkResult<T>(data)

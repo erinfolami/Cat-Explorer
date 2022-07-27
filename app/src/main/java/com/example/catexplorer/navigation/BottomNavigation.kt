@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.catexplorer.navigation.BottomNavScreen
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {

@@ -1,4 +1,4 @@
-package com.example.catexplorer
+package com.example.catexplorer.base
 
 import retrofit2.Response
 

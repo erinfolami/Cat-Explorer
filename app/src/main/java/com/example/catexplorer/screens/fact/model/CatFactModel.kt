@@ -1,4 +1,4 @@
-package com.example.catexplorer.models
+package com.example.catexplorer.screens.fact.model
 
 import com.google.gson.annotations.SerializedName
 

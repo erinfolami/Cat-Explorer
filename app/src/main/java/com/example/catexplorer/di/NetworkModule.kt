@@ -1,6 +1,7 @@
-package com.example.catexplorer
+package com.example.catexplorer.di
 
-import com.example.catexplorer.Constants.Companion.BASE_URL
+import com.example.catexplorer.apiService.CatService
+import com.example.catexplorer.constant.Constants.Companion.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

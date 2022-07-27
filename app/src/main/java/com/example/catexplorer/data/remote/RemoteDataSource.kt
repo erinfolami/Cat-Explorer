@@ -1,6 +1,6 @@
 package com.example.catexplorer.data.remote
 
-import com.example.catexplorer.CatService
+import com.example.catexplorer.apiService.CatService
 import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(private val catService: CatService) {
