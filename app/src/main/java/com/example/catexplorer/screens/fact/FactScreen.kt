@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Share
@@ -13,11 +14,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
 import com.example.catexplorer.main.MainActivity
 import com.example.catexplorer.screens.fact.viewmodel.FactViewModel
@@ -25,33 +30,82 @@ import com.example.catexplorer.screens.fact.viewmodel.FactViewModel
 
 @Composable
 fun FactScreen(factViewModel: FactViewModel) {
-    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
 
-        val context = LocalContext.current
+    val context = LocalContext.current
 
-        Text(text = "Cat Facts!!!", fontWeight = FontWeight.Bold)
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(
+                modifier = Modifier,
+                context = context,
+                factViewModel = factViewModel
+            )
+        },
+        floatingActionButtonPosition = FabPosition.End
+    )
+
+    {
+      ScreenContent(factViewModel)
+    }
+
+}
+
+@Composable
+fun ScreenContent(factViewModel: FactViewModel){
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        val offset = Offset(5.0f, 10.0f)
+
+        Text(
+            text = "Cat Facts!!!",
+            fontWeight = FontWeight.Bold,
+            fontSize = 25.sp,
+            style = TextStyle(
+                shadow = Shadow(
+                    color = Color.Gray,
+                    offset = offset,
+                    blurRadius = 10f
+                )
+            ),
+            modifier = Modifier.padding(15.dp)
+        )
 
         factViewModel.response.value.data?.let {
             Text(
                 text = it.fact,
-                Modifier
-                    .border(0.5.dp, Color.Gray)
-                    .padding(4.dp)
+                modifier = Modifier
+                    .padding(10.dp)
+                    .border(0.5.dp, Color.Gray, shape = RoundedCornerShape(10.dp))
+                    .padding(10.dp)
             )
         }
 
-        Button(onClick = { fetchData(factViewModel) }) {
+        Button(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(98.dp)
+                .padding(25.dp)
+                .clip(CircleShape),
+            onClick = { fetchData(factViewModel) }) {
             Text(text = "Get Cat Fact")
         }
 
-        FloatingActionButton(
-            modifier = Modifier.padding(160.dp),
-            onClick = { shareCatFact(context, factViewModel) })
-        {
-            Icon(Icons.Outlined.Share, contentDescription = "Share Fact")
-        }
-
     }
+}
+
+
+@Composable
+fun FloatingActionButton(modifier: Modifier, context: Context, factViewModel: FactViewModel) {
+
+    FloatingActionButton(modifier = modifier.padding(vertical = 100.dp),
+        onClick = { shareCatFact(context, factViewModel) })
+    {
+        Icon(Icons.Outlined.Share, contentDescription = "Share Fact")
+    }
+
 }
 
 
