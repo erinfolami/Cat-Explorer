@@ -1,7 +1,8 @@
 package com.example.catexplorer.di
 
-import com.example.catexplorer.apiService.CatService
-import com.example.catexplorer.constant.Constants.Companion.BASE_URL
+import com.example.catexplorer.apiService.CatFactService
+import com.example.catexplorer.apiService.CatImagesService
+import com.example.catexplorer.utils.Constants.Companion.CatFact_BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,15 +19,23 @@ object NetworkModule {
     @Provides
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            // Note this Base Url will be changed dynamically
+            // and overwritten by the BaseUrl passed to the ApiService
+            .baseUrl(CatFact_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
     @Singleton
     @Provides
-    fun provideRetroServiceInterface(retrofit: Retrofit): CatService {
-        return retrofit.create(CatService::class.java)
+    fun provideCatFactInterface(retrofit: Retrofit): CatFactService {
+        return retrofit.create(CatFactService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideCatImagesInterface(retrofit: Retrofit): CatImagesService {
+        return retrofit.create(CatImagesService::class.java)
     }
 
 }

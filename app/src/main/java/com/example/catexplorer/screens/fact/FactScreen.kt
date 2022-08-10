@@ -18,14 +18,13 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
-import com.example.catexplorer.main.MainActivity
 import com.example.catexplorer.screens.fact.viewmodel.FactViewModel
+import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersViewModel
 
 
 @Composable
@@ -59,7 +58,7 @@ fun ScreenContent(factViewModel: FactViewModel){
     ) {
         val offset = Offset(5.0f, 10.0f)
 
-        Text(
+        Text( 
             text = "Cat Facts!!!",
             fontWeight = FontWeight.Bold,
             fontSize = 25.sp,
@@ -72,16 +71,16 @@ fun ScreenContent(factViewModel: FactViewModel){
             ),
             modifier = Modifier.padding(15.dp)
         )
-
-        factViewModel.response.value.data?.let {
+        factViewModel.response.value.data?.fact?.let {
             Text(
-                text = it.fact,
+                text = "$it",
                 modifier = Modifier
                     .padding(10.dp)
                     .border(0.5.dp, Color.Gray, shape = RoundedCornerShape(10.dp))
                     .padding(10.dp)
             )
         }
+
 
         Button(
             modifier = Modifier
@@ -109,7 +108,7 @@ fun FloatingActionButton(modifier: Modifier, context: Context, factViewModel: Fa
 }
 
 
-fun fetchData(factViewModel: FactViewModel) {
+private fun fetchData(factViewModel: FactViewModel) {
     factViewModel.fetchCatResponse()
 }
 

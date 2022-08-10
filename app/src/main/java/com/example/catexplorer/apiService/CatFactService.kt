@@ -1,12 +1,11 @@
 package com.example.catexplorer.apiService
 
-import com.example.catexplorer.constant.Constants
 import com.example.catexplorer.screens.fact.model.CatFactModel
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Url
 
-interface CatService {
-
-    @GET(Constants.FACT_URL)
-    suspend fun getCatFact(): Response<CatFactModel>
+interface CatFactService {
+    @GET
+    suspend fun getCatFact(@Url url: String): Response<CatFactModel>
 }
