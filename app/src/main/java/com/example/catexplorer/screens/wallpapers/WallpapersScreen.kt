@@ -1,11 +1,14 @@
 package com.example.catexplorer.screens
 
 
+import ShimmerAnimation
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,6 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -22,6 +26,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import coil.compose.AsyncImage
+import coil.compose.SubcomposeAsyncImage
 import coil.compose.rememberAsyncImagePainter
 import com.example.catexplorer.R
 import com.example.catexplorer.screens.fact.viewmodel.FactViewModel
@@ -29,12 +34,20 @@ import com.example.catexplorer.screens.wallpapers.model.CatImage
 import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersViewModel
 
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun WallpapersScreen(wallpapersViewModel: WallpapersViewModel) {
     val images = wallpapersViewModel.getCatImagePagination().collectAsLazyPagingItems()
+    WallpapersList(modifier = Modifier, images = images)
+}
 
-    LazyVerticalGrid(cells = GridCells.Adaptive(minSize = 128.dp)) {
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun WallpapersList(modifier: Modifier, images: LazyPagingItems<CatImage>) {
+    LazyVerticalGrid(
+        cells = GridCells.Adaptive(minSize = 128.dp),
+        modifier = modifier.background(color = Color.DarkGray)
+    ) {
         items(images) { image ->
             image?.let {
                 ImageCard(modifier = Modifier, image = it)
@@ -54,10 +67,13 @@ fun ImageCard(modifier: Modifier, image: CatImage) {
         shape = RoundedCornerShape(10.dp),
         elevation = 15.dp
     ) {
-        AsyncImage(
+        SubcomposeAsyncImage(
             model = image.url,
             contentDescription = null,
-            contentScale = ContentScale.FillHeight
+            contentScale = ContentScale.FillHeight,
+            loading = {
+                ShimmerAnimation()
+            }
         )
     }
 
