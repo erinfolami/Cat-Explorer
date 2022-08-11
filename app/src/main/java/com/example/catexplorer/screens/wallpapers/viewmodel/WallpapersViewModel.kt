@@ -1,5 +1,6 @@
 package com.example.catexplorer.screens.wallpapers.viewmodel
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -22,10 +23,8 @@ import javax.inject.Inject
 @HiltViewModel
 class WallpapersViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
-    fun getCatImagePagination(): Flow<PagingData<CatImage>> {
-        return Pager(PagingConfig(pageSize = catImage_NETWORK_PAGE_SIZE)){
+    val items = Pager(PagingConfig(pageSize = catImage_NETWORK_PAGE_SIZE)) {
             CatImagesSource(repository)
         }.flow.cachedIn(viewModelScope)
-    }
 
 }
