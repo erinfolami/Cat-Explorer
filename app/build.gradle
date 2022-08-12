@@ -90,6 +90,9 @@ dependencies {
 
     //Coil dependencies
     implementation("io.coil-kt:coil-compose:2.1.0")
+
+    //Accompanist dependencies
+    implementation "com.google.accompanist:accompanist-systemuicontroller:0.17.0"
 }
 
 // Allow references to generated code
