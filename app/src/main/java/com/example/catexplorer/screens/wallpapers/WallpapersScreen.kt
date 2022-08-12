@@ -36,8 +36,7 @@ import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersViewModel
 
 @Composable
 fun WallpapersScreen(wallpapersViewModel: WallpapersViewModel) {
-//    val images = wallpapersViewModel.getCatImagePagination().collectAsLazyPagingItems()
-        val images = wallpapersViewModel.items.collectAsLazyPagingItems()
+    val images = wallpapersViewModel.items.collectAsLazyPagingItems()
     WallpapersList(modifier = Modifier, images = images)
 }
 
