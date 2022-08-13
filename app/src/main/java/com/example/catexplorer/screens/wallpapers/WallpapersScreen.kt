@@ -8,19 +8,11 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -32,14 +24,31 @@ import com.example.catexplorer.R
 import com.example.catexplorer.screens.fact.viewmodel.FactViewModel
 import com.example.catexplorer.screens.wallpapers.model.CatImage
 import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersViewModel
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.SwipeRefreshState
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
 
 @Composable
 fun WallpapersScreen(wallpapersViewModel: WallpapersViewModel) {
     val images = wallpapersViewModel.items.collectAsLazyPagingItems()
-    WallpapersList(modifier = Modifier, images = images)
+    val state =
+        rememberSwipeRefreshState(isRefreshing = images.loadState.refresh is LoadState.Loading)
+
+    WallpapersScreenContent(state = state, images = images)
 }
 
+@Composable
+fun WallpapersScreenContent(
+    state: SwipeRefreshState,
+    images: LazyPagingItems<CatImage>
+) {
+    SwipeRefresh(state = state, onRefresh = { images.refresh() }) {
+
+        WallpapersList(modifier = Modifier, images = images)
+
+    }
+}
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -92,8 +101,3 @@ public fun <T : Any> LazyGridScope.items(
     }
 }
 
-
-//@Composable
-//fun WallpaperGrid(){
-//
-//}

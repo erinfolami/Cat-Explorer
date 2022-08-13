@@ -93,6 +93,7 @@ dependencies {
 
     //Accompanist dependencies
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.17.0"
+    implementation "com.google.accompanist:accompanist-swiperefresh:0.17.0"
 }
 
 // Allow references to generated code
