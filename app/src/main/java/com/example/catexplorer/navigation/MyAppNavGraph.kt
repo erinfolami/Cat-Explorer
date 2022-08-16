@@ -1,15 +1,18 @@
 package com.example.catexplorer
 
+import android.util.Log
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.example.catexplorer.navigation.BottomNavScreen
 import com.example.catexplorer.screens.FavouriteScreen
 import com.example.catexplorer.screens.WallpapersScreen
 import com.example.catexplorer.screens.fact.viewmodel.FactViewModel
+import com.example.catexplorer.screens.wallpapers.WallpapersDetailScreen
 import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersViewModel
 
 @Composable
@@ -21,10 +24,22 @@ fun NavigationGraph(navController: NavHostController) {
             FactScreen(viewModel)
         }
 
+
         composable(BottomNavScreen.Wallpapers.route) {
             val viewModel = hiltViewModel<WallpapersViewModel>()
-            WallpapersScreen(viewModel)
+            WallpapersScreen(viewModel, navController)
         }
+
+        composable("WallpapersDetail/{Url}",
+            arguments = listOf(navArgument("Url") { type = NavType.StringType })){
+
+            val imageUrl =  it.arguments?.getString("Url")
+            if (imageUrl != null) {
+                Log.i("WallpapersDetail","passed imageUrl $imageUrl")
+                WallpapersDetailScreen(imageUrl = imageUrl)
+            }
+        }
+
         composable(BottomNavScreen.Favourite.route) {
             FavouriteScreen()
         }

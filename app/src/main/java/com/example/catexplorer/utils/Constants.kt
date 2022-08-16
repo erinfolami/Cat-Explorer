@@ -3,6 +3,7 @@ package com.example.catexplorer.utils
 class Constants {
 
     companion object {
+
         const val CatFact_BASE_URL = "https://catfact.ninja"
         const val FACT_URL = "/fact"
 
@@ -13,7 +14,6 @@ class Constants {
 
         const val catImage_STARTING_PAGE_INDEX = 0
         const val catImage_NETWORK_PAGE_SIZE = 20
-
 
     }
 
