@@ -1,39 +1,47 @@
 package com.example.catexplorer.screens.wallpapers
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.FabPosition
+import androidx.compose.material.Scaffold
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.sp
-import com.example.catexplorer.R
+import androidx.compose.ui.layout.ContentScale
+import coil.compose.AsyncImage
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.Share
+import com.example.catexplorer.screens.wallpapers.multifab.MultiFabState
+import com.example.catexplorer.screens.wallpapers.multifab.MultiFloatingActionButton
 
 @Composable
 fun WallpapersDetailScreen(imageUrl: String) {
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(colorResource(id = R.color.teal_700))
-            .wrapContentSize(Alignment.Center)
-    ) {
-        Text(
-            text = imageUrl,
-            fontWeight = FontWeight.Bold,
-            color = Color.White,
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            textAlign = TextAlign.Center,
-            fontSize = 20.sp
-        )
+    var toState by remember { mutableStateOf(MultiFabState.COLLAPSED) }
+
+
+    Scaffold(floatingActionButton = {
+        MultiFloatingActionButton(fabIcon = Icons.Outlined.Add, toState = toState) { state ->
+            toState = state
+        }
+    },
+        floatingActionButtonPosition = FabPosition.End) {
+        ScreenContent(imageUrl)
     }
 
 
+}
+
+@Composable
+fun ScreenContent(imageUrl: String){
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        AsyncImage(
+            modifier = Modifier.fillMaxSize(),
+            model = imageUrl,
+            contentDescription = null,
+            contentScale = ContentScale.FillHeight
+        )
+    }
 }

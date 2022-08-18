@@ -88,7 +88,9 @@ fun ImageCard(modifier: Modifier, image: CatImage, navController: NavController)
         elevation = 15.dp
     ) {
         SubcomposeAsyncImage(
-            modifier = Modifier.clickable { navController.navigate(route = "WallpapersDetail/${encodedUrl}") },
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { navController.navigate(route = "WallpapersDetail/${encodedUrl}") },
             model = image.url,
             contentDescription = null,
             contentScale = ContentScale.FillHeight,
