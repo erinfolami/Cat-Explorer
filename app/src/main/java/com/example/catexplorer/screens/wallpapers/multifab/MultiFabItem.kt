@@ -7,3 +7,5 @@ data class MultiFabItem(
     val icon: ImageBitmap,
     val label: String
 )
+
+val items = listOf<MultiFabItem>()

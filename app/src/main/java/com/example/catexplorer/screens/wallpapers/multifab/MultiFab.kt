@@ -28,7 +28,7 @@ import androidx.core.content.ContextCompat
 
 @Composable
 fun MultiFloatingActionButton(
-    item: MultiFabItem,
+    items: List<MultiFabItem>,
     fabIcon: ImageVector,
     toState: MultiFabState,
     stateChanged: (fabState: MultiFabState) -> Unit,
@@ -46,8 +46,10 @@ fun MultiFloatingActionButton(
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         if (transition.currentState == MultiFabState.EXPANDED) {
-            MiniFabItem(item, onFabItemClicked)
-            Spacer(modifier = Modifier.height(20.dp))
+            items.forEach { item ->
+                MiniFabItem(item, onFabItemClicked)
+                Spacer(modifier = Modifier.height(20.dp))
+            }
         }
 
         FloatingActionButton(onClick = {

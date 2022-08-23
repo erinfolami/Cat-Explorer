@@ -22,10 +22,30 @@ fun WallpapersDetailScreen(imageUrl: String) {
 
     var toState by remember { mutableStateOf(MultiFabState.COLLAPSED) }
 
-    var item = MultiFabItem(
-        identifier = "FAVOURITE",
-        icon = ImageBitmap.imageResource(id = R.drawable.add_to_fav),
-        label = "favpurite"
+    var items = listOf(
+        MultiFabItem(
+            identifier = "FAVOURITE",
+            icon = ImageBitmap.imageResource(id = R.drawable.add_to_fav),
+            label = "favourite"
+        ),
+
+        MultiFabItem(
+            identifier = "SET AS WALLPAPER",
+            icon = ImageBitmap.imageResource(id = R.drawable.add_to_fav),
+            label = "Set As Wallpaper"
+        ),
+
+        MultiFabItem(
+            identifier = "DOWNLOAD",
+            icon = ImageBitmap.imageResource(id = R.drawable.add_to_fav),
+            label = "Download"
+        ),
+
+        MultiFabItem(
+            identifier = "SHARE",
+            icon = ImageBitmap.imageResource(id = R.drawable.add_to_fav),
+            label = "Share"
+        )
     )
 
     Scaffold(
@@ -33,7 +53,7 @@ fun WallpapersDetailScreen(imageUrl: String) {
             MultiFloatingActionButton(
                 fabIcon = Icons.Outlined.Add,
                 toState = toState,
-                item = item,
+                items = items,
                 stateChanged = { state -> toState = state },
                 onFabItemClicked = {}
             )
