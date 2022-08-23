@@ -17,11 +17,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.R
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 
 @Composable
 fun MultiFloatingActionButton(
@@ -41,7 +44,7 @@ fun MultiFloatingActionButton(
     }
 
 
-    Column(horizontalAlignment = Alignment.End) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
         if (transition.currentState == MultiFabState.EXPANDED) {
             MiniFabItem(item, onFabItemClicked)
             Spacer(modifier = Modifier.height(20.dp))
@@ -53,7 +56,7 @@ fun MultiFloatingActionButton(
                     MultiFabState.COLLAPSED
                 } else MultiFabState.EXPANDED
             )
-        }, modifier = Modifier.padding(vertical = 100.dp))
+        }, modifier = Modifier.paddingFromBaseline(bottom = 150.dp))
         {
             Icon(
                 imageVector = fabIcon,
@@ -74,6 +77,7 @@ fun MiniFabItem(
 
     val interactionSource = remember { MutableInteractionSource() }
     val buttonColor = MaterialTheme.colors.secondary
+
 
     Canvas(
         modifier = Modifier
