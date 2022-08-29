@@ -13,6 +13,7 @@ import androidx.compose.material.icons.outlined.Add
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.imageResource
 import com.example.catexplorer.R
+import com.example.catexplorer.screens.wallpapers.multifab.FabIdentifier
 import com.example.catexplorer.screens.wallpapers.multifab.MultiFabItem
 import com.example.catexplorer.screens.wallpapers.multifab.MultiFabState
 import com.example.catexplorer.screens.wallpapers.multifab.MultiFloatingActionButton
@@ -24,26 +25,26 @@ fun WallpapersDetailScreen(imageUrl: String) {
 
     var items = listOf(
         MultiFabItem(
-            identifier = "FAVOURITE",
-            icon = ImageBitmap.imageResource(id = R.drawable.add_to_fav),
+            identifier = FabIdentifier.FAVOURITE.name,
+            icon = ImageBitmap.imageResource(id = R.drawable.heart),
             label = "favourite"
         ),
 
         MultiFabItem(
-            identifier = "SET AS WALLPAPER",
-            icon = ImageBitmap.imageResource(id = R.drawable.add_to_fav),
+            identifier = FabIdentifier.SET_AS_WALLPAPER.name,
+            icon = ImageBitmap.imageResource(id = R.drawable.wallpaper),
             label = "Set As Wallpaper"
         ),
 
         MultiFabItem(
-            identifier = "DOWNLOAD",
-            icon = ImageBitmap.imageResource(id = R.drawable.add_to_fav),
+            identifier = FabIdentifier.DOWNLOAD.name,
+            icon = ImageBitmap.imageResource(id = R.drawable.download),
             label = "Download"
         ),
 
         MultiFabItem(
-            identifier = "SHARE",
-            icon = ImageBitmap.imageResource(id = R.drawable.add_to_fav),
+            identifier = FabIdentifier.SHARE.name,
+            icon = ImageBitmap.imageResource(id = R.drawable.share),
             label = "Share"
         )
     )
@@ -55,7 +56,18 @@ fun WallpapersDetailScreen(imageUrl: String) {
                 toState = toState,
                 items = items,
                 stateChanged = { state -> toState = state },
-                onFabItemClicked = {}
+                onFabItemClicked = { item ->
+                    when (item.identifier) {
+//                        FabIdentifier.FAVOURITE.name -> print("x == 1")
+//
+//                        FabIdentifier.SET_AS_WALLPAPER.name -> print("x == 1")
+//
+//                        FabIdentifier.DOWNLOAD.name -> print("x == 1")
+//
+//                        FabIdentifier.SHARE.name -> print("x == 1")
+
+                    }
+                }
             )
         },
 
