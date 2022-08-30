@@ -9,7 +9,7 @@ import com.example.catexplorer.utils.Constants.Companion.TheCatApi_BASE_URL
 import com.example.catexplorer.utils.Constants.Companion.api_key
 import javax.inject.Inject
 
-class RemoteDataSource @Inject constructor(
+class CatsRemoteDataSource @Inject constructor(
     private val catFactService: CatFactService,
     private val catImagesService: CatImagesService
 ) {

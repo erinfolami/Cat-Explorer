@@ -1,16 +1,15 @@
 package com.example.catexplorer.screens.wallpapers.paging
 
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.catexplorer.repositories.Repository
+import com.example.catexplorer.repositories.CatsRepository
 import com.example.catexplorer.screens.wallpapers.model.CatImage
 import com.example.catexplorer.utils.Constants.Companion.catImage_NETWORK_PAGE_SIZE
 import com.example.catexplorer.utils.Constants.Companion.catImage_STARTING_PAGE_INDEX
 import javax.inject.Inject
 
 
-class CatImagesSource @Inject constructor(private val repository: Repository) :
+class CatImagesSource @Inject constructor(private val catsRepository: CatsRepository) :
     PagingSource<Int, CatImage>() {
 
     override fun getRefreshKey(state: PagingState<Int, CatImage>): Int? {
@@ -30,7 +29,7 @@ class CatImagesSource @Inject constructor(private val repository: Repository) :
             filter["page"] = pageNumber
             filter["limit"] = catImage_NETWORK_PAGE_SIZE
 
-            val response = repository.getImages(filter)
+            val response = catsRepository.getImages(filter)
 
             val data = response.body() ?: emptyList()
 
