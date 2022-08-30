@@ -5,10 +5,12 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
+import com.example.catexplorer.data.local.FavouriteEntity
 import com.example.catexplorer.repositories.CatsRepository
 import com.example.catexplorer.screens.wallpapers.paging.CatImagesSource
 import com.example.catexplorer.utils.Constants.Companion.catImage_NETWORK_PAGE_SIZE
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,4 +20,10 @@ class WallpapersViewModel @Inject constructor(private val repository: CatsReposi
             CatImagesSource(repository)
         }.flow.cachedIn(viewModelScope)
 
+
+    fun saveToFavourite(favouriteEntity: FavouriteEntity){
+        viewModelScope.launch {
+            repository.insertFavourite(favouriteEntity)
+        }
+    }
 }

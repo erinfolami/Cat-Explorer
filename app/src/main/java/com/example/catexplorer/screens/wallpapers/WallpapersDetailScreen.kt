@@ -13,13 +13,15 @@ import androidx.compose.material.icons.outlined.Add
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.res.imageResource
 import com.example.catexplorer.R
+import com.example.catexplorer.data.local.FavouriteEntity
 import com.example.catexplorer.screens.wallpapers.multifab.FabIdentifier
 import com.example.catexplorer.screens.wallpapers.multifab.MultiFabItem
 import com.example.catexplorer.screens.wallpapers.multifab.MultiFabState
 import com.example.catexplorer.screens.wallpapers.multifab.MultiFloatingActionButton
+import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersViewModel
 
 @Composable
-fun WallpapersDetailScreen(imageUrl: String) {
+fun WallpapersDetailScreen(viewModel: WallpapersViewModel,imageUrl: String) {
 
     var toState by remember { mutableStateOf(MultiFabState.COLLAPSED) }
 
@@ -48,6 +50,7 @@ fun WallpapersDetailScreen(imageUrl: String) {
             label = "Share"
         )
     )
+    val favourite = FavouriteEntity(imageUrl = imageUrl)
 
     Scaffold(
         floatingActionButton = {
@@ -58,13 +61,13 @@ fun WallpapersDetailScreen(imageUrl: String) {
                 stateChanged = { state -> toState = state },
                 onFabItemClicked = { item ->
                     when (item.identifier) {
-//                        FabIdentifier.FAVOURITE.name -> print("x == 1")
+                        FabIdentifier.FAVOURITE.name -> viewModel.saveToFavourite(favourite)
 //
-//                        FabIdentifier.SET_AS_WALLPAPER.name -> print("x == 1")
+//                        FabIdentifier.SET_AS_WALLPAPER.name -> TODO
 //
-//                        FabIdentifier.DOWNLOAD.name -> print("x == 1")
+//                        FabIdentifier.DOWNLOAD.name -> TODO
 //
-//                        FabIdentifier.SHARE.name -> print("x == 1")
+//                        FabIdentifier.SHARE.name -> TODO
 
                     }
                 }

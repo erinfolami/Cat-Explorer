@@ -32,11 +32,12 @@ fun NavigationGraph(navController: NavHostController) {
 
         composable("WallpapersDetail/{Url}",
             arguments = listOf(navArgument("Url") { type = NavType.StringType })){
+            val viewModel = hiltViewModel<WallpapersViewModel>()
 
             val imageUrl =  it.arguments?.getString("Url")
             if (imageUrl != null) {
                 Log.i("WallpapersDetail","passed imageUrl $imageUrl")
-                WallpapersDetailScreen(imageUrl = imageUrl)
+                WallpapersDetailScreen(viewModel ,imageUrl = imageUrl)
             }
         }
 
