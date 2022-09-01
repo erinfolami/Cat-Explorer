@@ -35,13 +35,10 @@ import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersViewModel
 fun WallpapersDetailScreen(viewModel: WallpapersViewModel, imageUrl: String) {
 
     var toState by remember { mutableStateOf(MultiFabState.COLLAPSED) }
-    var showDialog = remember { mutableStateOf(false) }
+    val showDialog = remember { mutableStateOf(false) }
 
-    if (showDialog.value) {
-        WallpaperCustomDialog(setShowDialog = { showDialog.value = it })
-    }
 
-    var items = listOf(
+    val items = listOf(
         MultiFabItem(
             identifier = FabIdentifier.FAVOURITE.name,
             icon = ImageBitmap.imageResource(id = R.drawable.heart),
@@ -93,6 +90,11 @@ fun WallpapersDetailScreen(viewModel: WallpapersViewModel, imageUrl: String) {
         floatingActionButtonPosition = FabPosition.End
     ) {
         ScreenContent(imageUrl)
+
+        if (showDialog.value) {
+            WallpaperCustomDialog(setShowDialog = { showDialog.value = it })
+        }
+
     }
 
 
