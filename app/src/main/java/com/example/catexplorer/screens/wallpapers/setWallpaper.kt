@@ -4,7 +4,10 @@ import android.app.WallpaperManager
 import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -167,8 +170,6 @@ suspend fun getBitmap(context: Context, imageUrl: String): Bitmap? {
 }
 
 
-
-
 fun setHomeWallpaper(
     context: Context,
     imageUrl: String,
@@ -186,12 +187,22 @@ fun setHomeWallpaper(
             );
             if (result != 0) {
                 Log.i(ContentValues.TAG, "HomeWallpaper Set Successfully")
+
+                //Using Handler to show Toast from a non UI Thread as Toast.makeText() and
+                // other functions dealing with UI needs to be called within the main thread
+                Handler(Looper.getMainLooper()).post {
+                    val toast = Toast.makeText(
+                        context,
+                        "Wallpaper applied to Home screen.",
+                        Toast.LENGTH_SHORT
+                    )
+                    toast.show()
+                }
             }
         }
     }
 
 }
-
 
 
 fun setLockWallpaper(
@@ -210,11 +221,20 @@ fun setLockWallpaper(
             );
             if (result != 0) {
                 Log.i(ContentValues.TAG, "LockWallpaper Set Successfully")
+
+                //Using Handler to show Toast from a non UI Thread
+                Handler(Looper.getMainLooper()).post {
+                    val toast = Toast.makeText(
+                        context,
+                        "Wallpaper applied to Lock screen.",
+                        Toast.LENGTH_SHORT
+                    )
+                    toast.show()
+                }
             }
         }
     }
 }
-
 
 
 fun setHomeAndLockWallpaper(
@@ -233,6 +253,16 @@ fun setHomeAndLockWallpaper(
             );
             if (result != 0) {
                 Log.i(ContentValues.TAG, "HomeAndWallpaper Set Successfully")
+
+                //Using Handler to show Toast from a non UI Thread
+                Handler(Looper.getMainLooper()).post {
+                    val toast = Toast.makeText(
+                        context,
+                        "Wallpaper applied to Lock and Home screens.",
+                        Toast.LENGTH_SHORT
+                    )
+                    toast.show()
+                }
             }
         }
     }
