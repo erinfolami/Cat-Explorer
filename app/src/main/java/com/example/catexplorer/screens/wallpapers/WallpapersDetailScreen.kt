@@ -183,7 +183,11 @@ private fun WallpaperCustomDialog(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 25.dp),
+                        .padding(start = 25.dp)
+                        .clickable(onClick = {
+                            setLockWallpaper(context, imageUrl, wallpaperManager, coroutineScope)
+                            setShowDialog(false)
+                        }),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
@@ -206,7 +210,16 @@ private fun WallpaperCustomDialog(
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 25.dp),
+                        .padding(start = 25.dp)
+                        .clickable(onClick = {
+                            setHomeAndLockWallpaper(
+                                context,
+                                imageUrl,
+                                wallpaperManager,
+                                coroutineScope
+                            )
+                            setShowDialog(false)
+                        }),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
@@ -263,10 +276,17 @@ fun setHomeWallpaper(
 
     scope.launch {
         withContext(Dispatchers.IO) {
-            wallpaperManager.setBitmap(getBitmap(context, imageUrl));
+            var result = wallpaperManager.setBitmap(
+                getBitmap(context, imageUrl),
+                null,
+                false,
+                WallpaperManager.FLAG_SYSTEM
+            );
+            if (result != 0) {
+                Log.i(TAG, "HomeWallpaper Set Successfully")
+            }
         }
     }
-
 
 }
 
@@ -278,7 +298,36 @@ fun setLockWallpaper(
 ) {
     scope.launch {
         withContext(Dispatchers.IO) {
-            wallpaperManager.setBitmap(getBitmap(context, imageUrl),null,false,WallpaperManager.FLAG_LOCK);
+            var result = wallpaperManager.setBitmap(
+                getBitmap(context, imageUrl),
+                null,
+                false,
+                WallpaperManager.FLAG_LOCK
+            );
+            if (result != 0) {
+                Log.i(TAG, "LockWallpaper Set Successfully")
+            }
+        }
+    }
+}
+
+fun setHomeAndLockWallpaper(
+    context: Context,
+    imageUrl: String,
+    wallpaperManager: WallpaperManager,
+    scope: CoroutineScope
+) {
+    scope.launch {
+        withContext(Dispatchers.IO) {
+            var result = wallpaperManager.setBitmap(
+                getBitmap(context, imageUrl),
+                null,
+                false,
+                WallpaperManager.FLAG_SYSTEM or WallpaperManager.FLAG_LOCK
+            );
+            if (result != 0) {
+                Log.i(TAG, "HomeAndWallpaper Set Successfully")
+            }
         }
     }
 }
