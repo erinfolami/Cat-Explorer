@@ -270,4 +270,17 @@ fun setHomeWallpaper(
 
 }
 
+fun setLockWallpaper(
+    context: Context,
+    imageUrl: String,
+    wallpaperManager: WallpaperManager,
+    scope: CoroutineScope
+) {
+    scope.launch {
+        withContext(Dispatchers.IO) {
+            wallpaperManager.setBitmap(getBitmap(context, imageUrl),null,false,WallpaperManager.FLAG_LOCK);
+        }
+    }
+}
+
 
