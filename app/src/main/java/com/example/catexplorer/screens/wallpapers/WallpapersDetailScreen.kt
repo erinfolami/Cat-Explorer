@@ -50,6 +50,7 @@ fun WallpapersDetailScreen(viewModel: WallpapersViewModel, imageUrl: String) {
     val showDialog = remember { mutableStateOf(false) }
 
     val context = LocalContext.current
+    val tag = "WallpapersDetailScreen"
 
 
     val items = listOf(
@@ -92,7 +93,7 @@ fun WallpapersDetailScreen(viewModel: WallpapersViewModel, imageUrl: String) {
 //
                         FabIdentifier.SET_AS_WALLPAPER.name -> showDialog.value = true
 //
-//                        FabIdentifier.DOWNLOAD.name -> TODO
+                        FabIdentifier.DOWNLOAD.name -> downloadImage(tag, context, imageUrl)
 //
 //                        FabIdentifier.SHARE.name -> TODO
 
@@ -109,7 +110,8 @@ fun WallpapersDetailScreen(viewModel: WallpapersViewModel, imageUrl: String) {
             WallpaperCustomDialog(
                 setShowDialog = { showDialog.value = it },
                 imageUrl = imageUrl,
-                context = context
+                context = context,
+                tag = tag
             )
         }
 

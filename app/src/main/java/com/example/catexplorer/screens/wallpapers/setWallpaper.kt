@@ -36,6 +36,7 @@ import kotlinx.coroutines.withContext
 
 @Composable
 fun WallpaperCustomDialog(
+    tag: String,
     imageUrl: String,
     context: Context,
     setShowDialog: (Boolean) -> Unit
@@ -59,7 +60,13 @@ fun WallpaperCustomDialog(
                         .fillMaxWidth()
                         .padding(start = 25.dp)
                         .clickable(onClick = {
-                            setHomeWallpaper(context, imageUrl, wallpaperManager, coroutineScope)
+                            setHomeWallpaper(
+                                tag,
+                                context,
+                                imageUrl,
+                                wallpaperManager,
+                                coroutineScope
+                            )
                             setShowDialog(false)
                         }),
                     verticalAlignment = Alignment.CenterVertically,
@@ -87,7 +94,13 @@ fun WallpaperCustomDialog(
                         .fillMaxWidth()
                         .padding(start = 25.dp)
                         .clickable(onClick = {
-                            setLockWallpaper(context, imageUrl, wallpaperManager, coroutineScope)
+                            setLockWallpaper(
+                                tag,
+                                context,
+                                imageUrl,
+                                wallpaperManager,
+                                coroutineScope
+                            )
                             setShowDialog(false)
                         }),
                     verticalAlignment = Alignment.CenterVertically
@@ -115,6 +128,7 @@ fun WallpaperCustomDialog(
                         .padding(start = 25.dp)
                         .clickable(onClick = {
                             setHomeAndLockWallpaper(
+                                tag,
                                 context,
                                 imageUrl,
                                 wallpaperManager,
@@ -145,7 +159,7 @@ fun WallpaperCustomDialog(
 }
 
 
-suspend fun getBitmap(context: Context, imageUrl: String): Bitmap? {
+suspend fun getBitmap(tag: String, context: Context, imageUrl: String): Bitmap? {
 
     var bitmap: Bitmap? = null
 
@@ -153,14 +167,14 @@ suspend fun getBitmap(context: Context, imageUrl: String): Bitmap? {
         .data(imageUrl)
         .target(
             onStart = {
-                Log.d(ContentValues.TAG, "Coil loader started.")
+                Log.d(tag, "Coil loader started.")
             },
             onSuccess = { result ->
-                Log.e(ContentValues.TAG, "Coil loader success.")
+                Log.e(tag, "Coil loader success.")
                 bitmap = result.toBitmap()
             },
             onError = {
-                Log.e(ContentValues.TAG, "Coil loading error")
+                Log.e(tag, "Coil loading error")
             }
         )
         .build()
@@ -171,6 +185,7 @@ suspend fun getBitmap(context: Context, imageUrl: String): Bitmap? {
 
 
 fun setHomeWallpaper(
+    tag: String,
     context: Context,
     imageUrl: String,
     wallpaperManager: WallpaperManager,
@@ -180,13 +195,13 @@ fun setHomeWallpaper(
     scope.launch {
         withContext(Dispatchers.IO) {
             var result = wallpaperManager.setBitmap(
-                getBitmap(context, imageUrl),
+                getBitmap(tag, context, imageUrl),
                 null,
                 false,
                 WallpaperManager.FLAG_SYSTEM
             );
             if (result != 0) {
-                Log.i(ContentValues.TAG, "HomeWallpaper Set Successfully")
+                Log.i(tag, "HomeWallpaper Set Successfully")
 
                 //Using Handler to show Toast from a non UI Thread as Toast.makeText() and
                 // other functions dealing with UI needs to be called within the main thread
@@ -206,6 +221,7 @@ fun setHomeWallpaper(
 
 
 fun setLockWallpaper(
+    tag: String,
     context: Context,
     imageUrl: String,
     wallpaperManager: WallpaperManager,
@@ -214,13 +230,13 @@ fun setLockWallpaper(
     scope.launch {
         withContext(Dispatchers.IO) {
             var result = wallpaperManager.setBitmap(
-                getBitmap(context, imageUrl),
+                getBitmap(tag, context, imageUrl),
                 null,
                 false,
                 WallpaperManager.FLAG_LOCK
             );
             if (result != 0) {
-                Log.i(ContentValues.TAG, "LockWallpaper Set Successfully")
+                Log.i(tag, "LockWallpaper Set Successfully")
 
                 //Using Handler to show Toast from a non UI Thread
                 Handler(Looper.getMainLooper()).post {
@@ -238,6 +254,7 @@ fun setLockWallpaper(
 
 
 fun setHomeAndLockWallpaper(
+    tag: String,
     context: Context,
     imageUrl: String,
     wallpaperManager: WallpaperManager,
@@ -246,13 +263,13 @@ fun setHomeAndLockWallpaper(
     scope.launch {
         withContext(Dispatchers.IO) {
             var result = wallpaperManager.setBitmap(
-                getBitmap(context, imageUrl),
+                getBitmap(tag, context, imageUrl),
                 null,
                 false,
                 WallpaperManager.FLAG_SYSTEM or WallpaperManager.FLAG_LOCK
             );
             if (result != 0) {
-                Log.i(ContentValues.TAG, "HomeAndWallpaper Set Successfully")
+                Log.i(tag, "HomeAndWallpaper Set Successfully")
 
                 //Using Handler to show Toast from a non UI Thread
                 Handler(Looper.getMainLooper()).post {
