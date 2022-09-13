@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.catexplorer.navigation.BottomNavScreen
+import com.example.catexplorer.navigation.DetailsNavScreen
 import com.example.catexplorer.screens.FavouriteScreen
 import com.example.catexplorer.screens.WallpapersScreen
 import com.example.catexplorer.screens.fact.viewmodel.FactViewModel
@@ -31,7 +32,7 @@ fun NavigationGraph(navController: NavHostController) {
             WallpapersScreen(viewModel, navController)
         }
 
-        composable("WallpapersDetail/{Url}",
+        composable(DetailsNavScreen.WallpapersDetail.route,
             arguments = listOf(navArgument("Url") { type = NavType.StringType })){
             val viewModel = hiltViewModel<WallpapersViewModel>()
 
