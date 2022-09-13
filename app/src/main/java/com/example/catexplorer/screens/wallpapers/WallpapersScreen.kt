@@ -76,7 +76,7 @@ fun WallpapersList(
 
 
 @Composable
-fun ImageCard(modifier: Modifier, image: CatImage, navController: NavController) {
+private fun ImageCard(modifier: Modifier, image: CatImage, navController: NavController) {
     //encoding image url because we need to pass the url inside another url
     val encodedUrl = URLEncoder.encode(image.url, StandardCharsets.UTF_8.toString())
 

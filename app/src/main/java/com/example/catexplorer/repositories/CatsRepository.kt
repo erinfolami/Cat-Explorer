@@ -28,8 +28,8 @@ class CatsRepository @Inject constructor(
         return catsRemoteDataSource.getCatImages(filter)
     }
 
-    suspend fun getAllFavourite(){
-        favouritesDao.getAllFavourite()
+    suspend fun getAllFavourite(): Flow<List<FavouriteEntity>>{
+        return favouritesDao.getAllFavourite();
     }
 
     suspend fun insertFavourite(favouriteEntity: FavouriteEntity){

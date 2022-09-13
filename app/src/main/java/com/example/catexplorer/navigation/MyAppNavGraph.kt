@@ -12,6 +12,7 @@ import com.example.catexplorer.navigation.BottomNavScreen
 import com.example.catexplorer.screens.FavouriteScreen
 import com.example.catexplorer.screens.WallpapersScreen
 import com.example.catexplorer.screens.fact.viewmodel.FactViewModel
+import com.example.catexplorer.screens.favourite.FavouriteViewModel
 import com.example.catexplorer.screens.wallpapers.WallpapersDetailScreen
 import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersViewModel
 
@@ -42,7 +43,8 @@ fun NavigationGraph(navController: NavHostController) {
         }
 
         composable(BottomNavScreen.Favourite.route) {
-            FavouriteScreen()
+            val viewModel = hiltViewModel<FavouriteViewModel>()
+            FavouriteScreen(viewModel,navController)
         }
     }
 }
