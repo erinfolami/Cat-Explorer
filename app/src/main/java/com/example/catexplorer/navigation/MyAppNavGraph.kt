@@ -33,19 +33,20 @@ fun NavigationGraph(navController: NavHostController) {
         }
 
         composable(DetailsNavScreen.WallpapersDetail.route,
-            arguments = listOf(navArgument("Url") { type = NavType.StringType })){
+            arguments = listOf(navArgument("Url") { type = NavType.StringType })
+        ) {
             val viewModel = hiltViewModel<WallpapersViewModel>()
 
-            val imageUrl =  it.arguments?.getString("Url")
+            val imageUrl = it.arguments?.getString("Url")
             if (imageUrl != null) {
-                Log.i("WallpapersDetail","passed imageUrl $imageUrl")
-                WallpapersDetailScreen(viewModel ,imageUrl = imageUrl)
+                Log.i("WallpapersDetail", "passed imageUrl $imageUrl")
+                WallpapersDetailScreen(viewModel, imageUrl = imageUrl)
             }
         }
 
         composable(BottomNavScreen.Favourite.route) {
             val viewModel = hiltViewModel<FavouriteViewModel>()
-            FavouriteScreen(viewModel,navController)
+            FavouriteScreen(viewModel, navController)
         }
     }
 }
