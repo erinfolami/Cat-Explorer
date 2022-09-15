@@ -20,15 +20,22 @@ import com.example.catexplorer.navigation.DetailsNavScreen
 @Composable
 fun MainScreenView() {
     val navController = rememberNavController()
-    var showButtonBar  by rememberSaveable { mutableStateOf(true) }
+    val bottomBarState = rememberSaveable { (mutableStateOf(true)) }
     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
-    showButtonBar = when(navBackStackEntry?.destination?.route){
-        DetailsNavScreen.WallpapersDetail.route  -> false  // on this screen bottom bar should be hidden
-        else -> true
+    when (navBackStackEntry?.destination?.route) {
+        DetailsNavScreen.WallpapersDetail.route -> {
+            bottomBarState.value = false
+        }  // on this screen bottom bar should be hidden
+        else -> bottomBarState.value = true
     }
 
-    Scaffold(bottomBar = {if(showButtonBar) BottomNavigationBar(navController = navController) })
+    com.google.accompanist.insets.ui.Scaffold(bottomBar = {
+        BottomNavigationBar(
+            navController = navController,
+            bottomBarState
+        )
+    })
     {
         Box(modifier = Modifier.padding(it)) {
             NavigationGraph(navController = navController)

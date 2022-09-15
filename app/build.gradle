@@ -95,6 +95,8 @@ dependencies {
     //Accompanist dependencies
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.17.0"
     implementation "com.google.accompanist:accompanist-swiperefresh:0.17.0"
+    implementation "com.google.accompanist:accompanist-insets-ui:0.17.0"
+
 
     //Room dependencies
     implementation("androidx.room:room-runtime:$room_version")
