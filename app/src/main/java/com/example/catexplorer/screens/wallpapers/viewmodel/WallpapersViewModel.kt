@@ -8,6 +8,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.example.catexplorer.data.local.FavouriteEntity
 import com.example.catexplorer.repositories.CatsRepository
+import com.example.catexplorer.screens.wallpapers.model.PostFavourite
 import com.example.catexplorer.screens.wallpapers.paging.CatImagesSource
 import com.example.catexplorer.utils.Constants.Companion.catImage_NETWORK_PAGE_SIZE
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -33,6 +34,12 @@ class WallpapersViewModel @Inject constructor(private val repository: CatsReposi
     fun getAllFavourite(){
         viewModelScope.launch {
             repository.getAllFavourite()
+        }
+    }
+
+    fun postFavourite(postBody: PostFavourite){
+        viewModelScope.launch {
+            repository.postFavourite(postBody)
         }
     }
 }

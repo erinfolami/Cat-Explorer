@@ -29,6 +29,7 @@ import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshState
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
@@ -79,6 +80,12 @@ fun WallpapersList(
 private fun ImageCard(modifier: Modifier, image: CatImage, navController: NavController) {
     //encoding image url because we need to pass the url inside another url
     val encodedUrl = URLEncoder.encode(image.url, StandardCharsets.UTF_8.toString())
+
+//    //using Moshi to parse image object into JSON string..
+//    // as data objects cannot be passed directly
+//    val moshi = Moshi.Builder().build()
+//    val jsonAdapter = moshi.adapter(CatImage::class.java).lenient()
+//    val imageJson = jsonAdapter.toJson(image)
 
     Card(
         modifier = modifier

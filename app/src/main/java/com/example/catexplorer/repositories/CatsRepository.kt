@@ -6,6 +6,7 @@ import com.example.catexplorer.data.local.FavouriteEntity
 import com.example.catexplorer.data.local.FavouritesDao
 import com.example.catexplorer.data.remote.CatsRemoteDataSource
 import com.example.catexplorer.screens.fact.model.CatFactModel
+import com.example.catexplorer.screens.wallpapers.model.PostFavourite
 import com.example.catexplorer.screens.wallpapers.model.CatImage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -28,16 +29,19 @@ class CatsRepository @Inject constructor(
         return catsRemoteDataSource.getCatImages(filter)
     }
 
-    suspend fun getAllFavourite(): Flow<List<FavouriteEntity>>{
+    suspend fun getAllFavourite(): Flow<List<FavouriteEntity>> {
         return favouritesDao.getAllFavourite();
     }
 
-    suspend fun insertFavourite(favouriteEntity: FavouriteEntity){
+    suspend fun insertFavourite(favouriteEntity: FavouriteEntity) {
         favouritesDao.insertFavourite(favouriteEntity)
     }
 
-    suspend fun deleteFavourite(favouriteEntity: FavouriteEntity){
+    suspend fun deleteFavourite(favouriteEntity: FavouriteEntity) {
         favouritesDao.deleteFavourite(favouriteEntity)
     }
 
+    suspend fun postFavourite(postBody: PostFavourite) {
+        catsRemoteDataSource.postFavourite(postBody)
+    }
 }

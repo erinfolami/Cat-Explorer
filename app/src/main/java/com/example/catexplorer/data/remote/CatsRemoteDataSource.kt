@@ -2,8 +2,10 @@ package com.example.catexplorer.data.remote
 
 import com.example.catexplorer.apiService.CatFactService
 import com.example.catexplorer.apiService.CatImagesService
+import com.example.catexplorer.screens.wallpapers.model.PostFavourite
 import com.example.catexplorer.utils.Constants.Companion.CatFact_BASE_URL
 import com.example.catexplorer.utils.Constants.Companion.FACT_URL
+import com.example.catexplorer.utils.Constants.Companion.FAVOURITE_URL
 import com.example.catexplorer.utils.Constants.Companion.IMAGE_URL
 import com.example.catexplorer.utils.Constants.Companion.TheCatApi_BASE_URL
 import com.example.catexplorer.utils.Constants.Companion.api_key
@@ -17,6 +19,10 @@ class CatsRemoteDataSource @Inject constructor(
     suspend fun getCat() = catFactService.getCatFact(CatFact_BASE_URL + FACT_URL)
 
     suspend fun getCatImages(filter: HashMap<String,Int>) = catImagesService.getCatImages(TheCatApi_BASE_URL + IMAGE_URL, filter, api_key)
+
+    suspend fun postFavourite(postBody: PostFavourite){
+        catImagesService.postFavourite(TheCatApi_BASE_URL + FAVOURITE_URL,postBody,api_key)
+    }
 
 
 
