@@ -5,6 +5,10 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 
+def apikeyPropertiesFile = rootProject.file("local.properties")
+def apikeyProperties = new Properties()
+apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
 android {
     compileSdk 32
 
@@ -14,6 +18,10 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
+        
+        // Expecting a variable `CAT_FACTS_API_KEY` in the local.properties file, with the key
+        // from the CATFACTS API.
+        buildConfigField("String", "CAT_FACTS_API_KEY", apikeyProperties['CAT_FACTS_API_KEY'])
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
