@@ -1,13 +1,6 @@
 package com.example.catexplorer.screens.wallpapers
 
-import android.app.WallpaperManager
-import android.content.ContentValues.TAG
-import android.content.Context
-import android.graphics.Bitmap
-import android.util.Log
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -16,38 +9,24 @@ import coil.compose.AsyncImage
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.imageResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
-import androidx.core.graphics.drawable.toBitmap
-import androidx.lifecycle.LifecycleCoroutineScope
-import coil.ImageLoader
-import coil.imageLoader
-import coil.request.ImageRequest
 import com.example.catexplorer.R
 import com.example.catexplorer.data.local.FavouriteEntity
 import com.example.catexplorer.screens.wallpapers.multifab.FabIdentifier
 import com.example.catexplorer.screens.wallpapers.multifab.MultiFabItem
 import com.example.catexplorer.screens.wallpapers.multifab.MultiFabState
 import com.example.catexplorer.screens.wallpapers.multifab.MultiFloatingActionButton
-import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersViewModel
-import kotlinx.coroutines.*
+import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersSharedViewModel
 
 @Composable
-fun WallpapersDetailScreen(viewModel: WallpapersViewModel, imageUrl: String) {
+fun WallpapersDetailScreen(wallpapersSharedViewModel: WallpapersSharedViewModel) {
 
     var toState by remember { mutableStateOf(MultiFabState.COLLAPSED) }
     val showDialog = remember { mutableStateOf(false) }
+    val imageUrl = wallpapersSharedViewModel.imageItem?.url
+
 
     val context = LocalContext.current
     val tag = "WallpapersDetailScreen"
@@ -89,11 +68,17 @@ fun WallpapersDetailScreen(viewModel: WallpapersViewModel, imageUrl: String) {
                 stateChanged = { state -> toState = state },
                 onFabItemClicked = { item ->
                     when (item.identifier) {
-                        FabIdentifier.FAVOURITE.name -> viewModel.saveToFavourite(favourite)
+                        FabIdentifier.FAVOURITE.name -> wallpapersSharedViewModel.saveToFavourite(
+                            favourite
+                        )
 //
                         FabIdentifier.SET_AS_WALLPAPER.name -> showDialog.value = true
 //
-                        FabIdentifier.DOWNLOAD.name -> downloadImage(tag, context, imageUrl)
+                        FabIdentifier.DOWNLOAD.name -> imageUrl?.let {
+                            downloadImage(tag, context,
+                                it
+                            )
+                        }
 //
 //                        FabIdentifier.SHARE.name -> TODO
 
@@ -104,15 +89,19 @@ fun WallpapersDetailScreen(viewModel: WallpapersViewModel, imageUrl: String) {
 
         floatingActionButtonPosition = FabPosition.End
     ) {
-        ScreenContent(imageUrl)
+        if (imageUrl != null) {
+            ScreenContent(imageUrl)
+        }
 
         if (showDialog.value) {
-            WallpaperCustomDialog(
-                setShowDialog = { showDialog.value = it },
-                imageUrl = imageUrl,
-                context = context,
-                tag = tag
-            )
+            if (imageUrl != null) {
+                WallpaperCustomDialog(
+                    setShowDialog = { showDialog.value = it },
+                    imageUrl = imageUrl,
+                    context = context,
+                    tag = tag
+                )
+            }
         }
 
     }

@@ -15,10 +15,13 @@ import com.example.catexplorer.screens.WallpapersScreen
 import com.example.catexplorer.screens.fact.viewmodel.FactViewModel
 import com.example.catexplorer.screens.favourite.FavouriteViewModel
 import com.example.catexplorer.screens.wallpapers.WallpapersDetailScreen
-import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersViewModel
+import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersSharedViewModel
 
 @Composable
 fun NavigationGraph(navController: NavHostController) {
+
+    val wallpapersSharedViewModel = hiltViewModel<WallpapersSharedViewModel>()
+
     NavHost(navController, startDestination = BottomNavScreen.Fact.route) {
 
         composable(BottomNavScreen.Fact.route) {
@@ -28,20 +31,15 @@ fun NavigationGraph(navController: NavHostController) {
 
 
         composable(BottomNavScreen.Wallpapers.route) {
-            val viewModel = hiltViewModel<WallpapersViewModel>()
-            WallpapersScreen(viewModel, navController)
+            WallpapersScreen(wallpapersSharedViewModel, navController)
         }
 
-        composable(DetailsNavScreen.WallpapersDetail.route,
-            arguments = listOf(navArgument("Url") { type = NavType.StringType })
-        ) {
-            val viewModel = hiltViewModel<WallpapersViewModel>()
+        composable(DetailsNavScreen.WallpapersDetail.route) {
+            val imageUrl = wallpapersSharedViewModel.imageItem?.url
 
-            val imageUrl = it.arguments?.getString("Url")
-            if (imageUrl != null) {
-                Log.i("WallpapersDetail", "passed imageUrl $imageUrl")
-                WallpapersDetailScreen(viewModel, imageUrl = imageUrl)
-            }
+            Log.i("WallpapersDetail", "passed imageUrl $imageUrl")
+            WallpapersDetailScreen(wallpapersSharedViewModel)
+
         }
 
         composable(BottomNavScreen.Favourite.route) {

@@ -24,7 +24,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
 import com.example.catexplorer.screens.fact.viewmodel.FactViewModel
-import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersViewModel
 
 
 @Composable

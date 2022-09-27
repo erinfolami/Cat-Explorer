@@ -2,6 +2,7 @@ package com.example.catexplorer.screens
 
 
 import ShimmerAnimation
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,14 +19,9 @@ import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
-import coil.compose.AsyncImage
 import coil.compose.SubcomposeAsyncImage
-import coil.compose.rememberAsyncImagePainter
-import com.example.catexplorer.R
-import com.example.catexplorer.screens.fact.viewmodel.FactViewModel
 import com.example.catexplorer.screens.wallpapers.model.CatImage
-import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersViewModel
+import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersSharedViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshState
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -35,23 +31,24 @@ import java.nio.charset.StandardCharsets
 
 
 @Composable
-fun WallpapersScreen(wallpapersViewModel: WallpapersViewModel, navController: NavController) {
-    val images = wallpapersViewModel.items.collectAsLazyPagingItems()
+fun WallpapersScreen(wallpapersSharedViewModel: WallpapersSharedViewModel, navController: NavController) {
+    val images = wallpapersSharedViewModel.items.collectAsLazyPagingItems()
     val state =
         rememberSwipeRefreshState(isRefreshing = images.loadState.refresh is LoadState.Loading)
 
-    WallpapersScreenContent(state = state, images = images, navController = navController)
+    WallpapersScreenContent(state = state, images = images, navController = navController,wallpapersSharedViewModel)
 }
 
 @Composable
 fun WallpapersScreenContent(
     state: SwipeRefreshState,
     images: LazyPagingItems<CatImage>,
-    navController: NavController
+    navController: NavController,
+    wallpapersSharedViewModel: WallpapersSharedViewModel
 ) {
     SwipeRefresh(state = state, onRefresh = { images.refresh() }) {
 
-        WallpapersList(modifier = Modifier, images = images, navController = navController)
+        WallpapersList(modifier = Modifier, images = images, navController = navController,wallpapersSharedViewModel)
 
     }
 }
@@ -61,7 +58,8 @@ fun WallpapersScreenContent(
 fun WallpapersList(
     modifier: Modifier,
     images: LazyPagingItems<CatImage>,
-    navController: NavController
+    navController: NavController,
+    viewModel: WallpapersSharedViewModel
 ) {
     LazyVerticalGrid(
         cells = GridCells.Adaptive(minSize = 128.dp),
@@ -69,7 +67,7 @@ fun WallpapersList(
     ) {
         items(images) { image ->
             image?.let {
-                ImageCard(modifier = Modifier, image = it, navController = navController)
+                ImageCard(modifier = Modifier, image = it, navController = navController,viewModel = viewModel)
             }
         }
     }
@@ -77,15 +75,7 @@ fun WallpapersList(
 
 
 @Composable
-private fun ImageCard(modifier: Modifier, image: CatImage, navController: NavController) {
-    //encoding image url because we need to pass the url inside another url
-    val encodedUrl = URLEncoder.encode(image.url, StandardCharsets.UTF_8.toString())
-
-//    //using Moshi to parse image object into JSON string..
-//    // as data objects cannot be passed directly
-//    val moshi = Moshi.Builder().build()
-//    val jsonAdapter = moshi.adapter(CatImage::class.java).lenient()
-//    val imageJson = jsonAdapter.toJson(image)
+private fun ImageCard(modifier: Modifier, image: CatImage,viewModel: WallpapersSharedViewModel, navController: NavController) {
 
     Card(
         modifier = modifier
@@ -97,7 +87,9 @@ private fun ImageCard(modifier: Modifier, image: CatImage, navController: NavCon
         SubcomposeAsyncImage(
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable { navController.navigate(route = "WallpapersDetail/${encodedUrl}") },
+                .clickable {
+                    viewModel.addImageItem(image)
+                    navController.navigate(route = "WallpapersDetail") },
             model = image.url,
             contentDescription = null,
             contentScale = ContentScale.FillHeight,
