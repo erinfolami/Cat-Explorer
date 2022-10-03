@@ -4,8 +4,8 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.catexplorer.repositories.CatsRepository
 import com.example.catexplorer.screens.wallpapers.model.CatImage
-import com.example.catexplorer.utils.Constants.Companion.catImage_NETWORK_PAGE_SIZE
-import com.example.catexplorer.utils.Constants.Companion.catImage_STARTING_PAGE_INDEX
+import com.example.catexplorer.utils.ApiConstants.Companion.catImage_NETWORK_PAGE_SIZE
+import com.example.catexplorer.utils.ApiConstants.Companion.catImage_STARTING_PAGE_INDEX
 import javax.inject.Inject
 
 

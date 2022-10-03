@@ -14,6 +14,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import com.example.catexplorer.R
 import com.example.catexplorer.data.local.FavouriteEntity
+import com.example.catexplorer.main.viewmodel.MainViewModel
+import com.example.catexplorer.screens.wallpapers.model.PostFavourite
 import com.example.catexplorer.screens.wallpapers.multifab.FabIdentifier
 import com.example.catexplorer.screens.wallpapers.multifab.MultiFabItem
 import com.example.catexplorer.screens.wallpapers.multifab.MultiFabState
@@ -21,11 +23,17 @@ import com.example.catexplorer.screens.wallpapers.multifab.MultiFloatingActionBu
 import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersSharedViewModel
 
 @Composable
-fun WallpapersDetailScreen(wallpapersSharedViewModel: WallpapersSharedViewModel) {
+fun WallpapersDetailScreen(
+    wallpapersSharedViewModel: WallpapersSharedViewModel,
+    mainViewModel: MainViewModel
+) {
 
     var toState by remember { mutableStateOf(MultiFabState.COLLAPSED) }
     val showDialog = remember { mutableStateOf(false) }
     val imageUrl = wallpapersSharedViewModel.imageItem?.url
+    val imageId = wallpapersSharedViewModel.imageItem?.id
+
+    val userId = mainViewModel.dataStoreData.value
 
 
     val context = LocalContext.current
@@ -57,7 +65,8 @@ fun WallpapersDetailScreen(wallpapersSharedViewModel: WallpapersSharedViewModel)
             label = "Share"
         )
     )
-    val favourite = FavouriteEntity(imageUrl = imageUrl)
+    val postFavourite = imageId?.let { PostFavourite(it, userId) }
+
 
     Scaffold(
         floatingActionButton = {
@@ -68,14 +77,17 @@ fun WallpapersDetailScreen(wallpapersSharedViewModel: WallpapersSharedViewModel)
                 stateChanged = { state -> toState = state },
                 onFabItemClicked = { item ->
                     when (item.identifier) {
-                        FabIdentifier.FAVOURITE.name -> wallpapersSharedViewModel.saveToFavourite(
-                            favourite
-                        )
+                        FabIdentifier.FAVOURITE.name -> postFavourite?.let {
+                            wallpapersSharedViewModel.postFavourite(
+                                it
+                            )
+                        }
 //
                         FabIdentifier.SET_AS_WALLPAPER.name -> showDialog.value = true
 //
                         FabIdentifier.DOWNLOAD.name -> imageUrl?.let {
-                            downloadImage(tag, context,
+                            downloadImage(
+                                tag, context,
                                 it
                             )
                         }

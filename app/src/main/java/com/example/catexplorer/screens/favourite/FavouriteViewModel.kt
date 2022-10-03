@@ -5,13 +5,8 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.cachedIn
 import com.example.catexplorer.data.local.FavouriteEntity
 import com.example.catexplorer.repositories.CatsRepository
-import com.example.catexplorer.screens.wallpapers.paging.CatImagesSource
-import com.example.catexplorer.utils.Constants
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

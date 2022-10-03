@@ -1,6 +1,6 @@
 package com.example.catexplorer.utils
 
-class Constants {
+class ApiConstants {
 
     companion object {
 

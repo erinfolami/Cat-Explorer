@@ -1,13 +1,16 @@
 package com.example.catexplorer
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.catexplorer.main.viewmodel.MainViewModel
 import com.example.catexplorer.navigation.BottomNavScreen
 import com.example.catexplorer.navigation.DetailsNavScreen
 import com.example.catexplorer.screens.FavouriteScreen
@@ -21,6 +24,8 @@ import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersSharedView
 fun NavigationGraph(navController: NavHostController) {
 
     val wallpapersSharedViewModel = hiltViewModel<WallpapersSharedViewModel>()
+    val mainViewModel = hiltViewModel<MainViewModel>()
+
 
     NavHost(navController, startDestination = BottomNavScreen.Fact.route) {
 
@@ -38,7 +43,7 @@ fun NavigationGraph(navController: NavHostController) {
             val imageUrl = wallpapersSharedViewModel.imageItem?.url
 
             Log.i("WallpapersDetail", "passed imageUrl $imageUrl")
-            WallpapersDetailScreen(wallpapersSharedViewModel)
+            WallpapersDetailScreen(wallpapersSharedViewModel,mainViewModel)
 
         }
 
