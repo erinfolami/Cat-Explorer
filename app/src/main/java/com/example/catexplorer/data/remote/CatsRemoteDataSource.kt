@@ -24,6 +24,8 @@ class CatsRemoteDataSource @Inject constructor(
         catImagesService.postFavourite(TheCatApi_BASE_URL + FAVOURITE_URL,postBody,api_key)
     }
 
+    suspend fun getFavourite(filter: HashMap<String, String>) = catImagesService.getFavourite(TheCatApi_BASE_URL + FAVOURITE_URL,filter, api_key)
+
 
 
 }

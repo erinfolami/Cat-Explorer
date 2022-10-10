@@ -6,6 +6,7 @@ import com.example.catexplorer.data.local.FavouriteEntity
 import com.example.catexplorer.data.local.FavouritesDao
 import com.example.catexplorer.data.remote.CatsRemoteDataSource
 import com.example.catexplorer.screens.fact.model.CatFactModel
+import com.example.catexplorer.screens.favourite.model.GetFavourite
 import com.example.catexplorer.screens.wallpapers.model.PostFavourite
 import com.example.catexplorer.screens.wallpapers.model.CatImage
 import kotlinx.coroutines.Dispatchers
@@ -44,4 +45,12 @@ class CatsRepository @Inject constructor(
     suspend fun postFavourite(postBody: PostFavourite) {
         catsRemoteDataSource.postFavourite(postBody)
     }
+
+
+    suspend fun getFavourite(filter: HashMap<String, String>): Flow<NetworkResult<GetFavourite>> {
+        return flow {
+            emit(safeApiCall { catsRemoteDataSource.getFavourite(filter) })
+        }.flowOn(Dispatchers.IO)
+    }
+
 }
