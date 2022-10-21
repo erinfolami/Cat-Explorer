@@ -1,5 +1,6 @@
 package com.example.catexplorer.data.remote
 
+import android.util.Log
 import com.example.catexplorer.apiService.CatFactService
 import com.example.catexplorer.apiService.CatImagesService
 import com.example.catexplorer.screens.wallpapers.model.PostFavourite
@@ -18,14 +19,26 @@ class CatsRemoteDataSource @Inject constructor(
 
     suspend fun getCat() = catFactService.getCatFact(CatFact_BASE_URL + FACT_URL)
 
-    suspend fun getCatImages(filter: HashMap<String,Int>) = catImagesService.getCatImages(TheCatApi_BASE_URL + IMAGE_URL, filter, api_key)
+    suspend fun getCatImages(filter: HashMap<String, Int>) =
+        catImagesService.getCatImages(TheCatApi_BASE_URL + IMAGE_URL, filter, api_key)
 
-    suspend fun postFavourite(postBody: PostFavourite){
-        catImagesService.postFavourite(TheCatApi_BASE_URL + FAVOURITE_URL,postBody,api_key)
+    suspend fun postFavourite(postBody: PostFavourite) {
+        catImagesService.postFavourite(TheCatApi_BASE_URL + FAVOURITE_URL, postBody, api_key)
     }
 
-    suspend fun getFavourite(filter: HashMap<String, String>) = catImagesService.getFavourite(TheCatApi_BASE_URL + FAVOURITE_URL,filter, api_key)
+    suspend fun getFavourite(filter: HashMap<String, String>) =
+        catImagesService.fetchFavourite(TheCatApi_BASE_URL + FAVOURITE_URL, filter, api_key)
 
+    suspend fun getAllFavourites(filter: HashMap<String, String>) =
+        catImagesService.fetchFavourite(TheCatApi_BASE_URL + FAVOURITE_URL, filter, api_key)
+
+
+    suspend fun deleteFavourite(favourite_id: Int) {
+        catImagesService.deleteFavourite(
+            "$TheCatApi_BASE_URL$FAVOURITE_URL/$favourite_id",
+            api_key
+        )
+    }
 
 
 }

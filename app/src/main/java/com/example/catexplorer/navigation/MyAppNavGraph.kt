@@ -1,30 +1,31 @@
 package com.example.catexplorer
 
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import com.example.catexplorer.main.viewmodel.MainViewModel
 import com.example.catexplorer.navigation.BottomNavScreen
 import com.example.catexplorer.navigation.DetailsNavScreen
 import com.example.catexplorer.screens.FavouriteScreen
 import com.example.catexplorer.screens.WallpapersScreen
 import com.example.catexplorer.screens.fact.viewmodel.FactViewModel
-import com.example.catexplorer.screens.favourite.FavouriteViewModel
+import com.example.catexplorer.screens.favourite.FavouriteDetailScreen
+import com.example.catexplorer.screens.favourite.viewmodel.FavouriteSharedViewModel
 import com.example.catexplorer.screens.wallpapers.WallpapersDetailScreen
 import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersSharedViewModel
 
 @Composable
 fun NavigationGraph(navController: NavHostController) {
 
-    val wallpapersSharedViewModel = hiltViewModel<WallpapersSharedViewModel>()
     val mainViewModel = hiltViewModel<MainViewModel>()
+    val wallpapersSharedViewModel = hiltViewModel<WallpapersSharedViewModel>()
+    val favouriteSharedViewModel = hiltViewModel<FavouriteSharedViewModel>()
+
+
+    Log.i("MainViewModel", "user ID ${mainViewModel.dataStoreData.value}")
 
 
     NavHost(navController, startDestination = BottomNavScreen.Fact.route) {
@@ -40,16 +41,26 @@ fun NavigationGraph(navController: NavHostController) {
         }
 
         composable(DetailsNavScreen.WallpapersDetail.route) {
-            val imageUrl = wallpapersSharedViewModel.imageItem?.url
-
+            val imageUrl = wallpapersSharedViewModel.wallpaperImageItem?.url
             Log.i("WallpapersDetail", "passed imageUrl $imageUrl")
-            WallpapersDetailScreen(wallpapersSharedViewModel,mainViewModel)
+
+            WallpapersDetailScreen(wallpapersSharedViewModel, mainViewModel)
 
         }
 
         composable(BottomNavScreen.Favourite.route) {
-            val viewModel = hiltViewModel<FavouriteViewModel>()
-            FavouriteScreen(viewModel, navController)
+            val imageUrl = favouriteSharedViewModel.favouriteImageItem?.image?.url
+            Log.i("FavouriteScreen", "passed imageUrl $imageUrl")
+
+            FavouriteScreen(favouriteSharedViewModel, mainViewModel, navController)
+        }
+
+        composable(DetailsNavScreen.FavouritesDetail.route) {
+            val imageUrl = favouriteSharedViewModel.favouriteImageItem?.image?.url
+            Log.i("FavouriteDetail", "passed imageUrl $imageUrl")
+
+            FavouriteDetailScreen(favouriteSharedViewModel, mainViewModel)
+
         }
     }
 }

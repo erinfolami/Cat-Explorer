@@ -1,4 +1,4 @@
-package com.example.catexplorer.screens.wallpapers
+package com.example.catexplorer.screens.favourite
 
 import android.util.Log
 import androidx.compose.foundation.layout.*
@@ -16,30 +16,34 @@ import androidx.compose.ui.res.imageResource
 import com.example.catexplorer.R
 import com.example.catexplorer.main.viewmodel.MainViewModel
 import com.example.catexplorer.screens.favourite.model.GetFavourite
+import com.example.catexplorer.screens.favourite.viewmodel.FavouriteSharedViewModel
+import com.example.catexplorer.screens.wallpapers.WallpaperCustomDialog
+import com.example.catexplorer.screens.wallpapers.downloadImage
 import com.example.catexplorer.screens.wallpapers.model.PostFavourite
 import com.example.catexplorer.screens.wallpapers.multifab.FabIdentifier
 import com.example.catexplorer.screens.wallpapers.multifab.MultiFabItem
 import com.example.catexplorer.screens.wallpapers.multifab.MultiFabState
 import com.example.catexplorer.screens.wallpapers.multifab.MultiFloatingActionButton
-import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersSharedViewModel
 
 @Composable
-fun WallpapersDetailScreen(
-    wallpapersSharedViewModel: WallpapersSharedViewModel,
+fun FavouriteDetailScreen(
+    favouriteSharedViewModel: FavouriteSharedViewModel,
     mainViewModel: MainViewModel
 ) {
     val tag = "WallpapersDetailScreen"
     val context = LocalContext.current
 
+    val userId = mainViewModel.dataStoreData.value
+
     var toState by remember { mutableStateOf(MultiFabState.COLLAPSED) }
     val showDialog = remember { mutableStateOf(false) }
-    val imageUrl = wallpapersSharedViewModel.wallpaperImageItem?.url
-    val imageId = wallpapersSharedViewModel.wallpaperImageItem?.id
+    val imageUrl = favouriteSharedViewModel.favouriteImageItem?.image?.url
+    val imageId = favouriteSharedViewModel.favouriteImageItem?.image_id
 
-    val favourite = wallpapersSharedViewModel.response.value.data
+    val favourite = favouriteSharedViewModel.response.value.data
 
+    val postFavouriteModel = imageId?.let { PostFavourite(it, userId) }
 
-    val userId = mainViewModel.dataStoreData.value
 
 
     val items = listOf(
@@ -73,8 +77,6 @@ fun WallpapersDetailScreen(
             label = "Share"
         )
     )
-    val postFavouriteModel = imageId?.let { PostFavourite(it, userId) }
-
 
     Scaffold(
         floatingActionButton = {
@@ -85,14 +87,16 @@ fun WallpapersDetailScreen(
                 stateChanged = { state -> toState = state },
                 onFabItemClicked = { item ->
                     when (item.identifier) {
-                        FabIdentifier.FAVOURITE.name -> postFavouriteModel?.let { postFavourite(it, tag,wallpapersSharedViewModel) }
+                        FabIdentifier.FAVOURITE.name -> postFavouriteModel?.let { postFavourite(tag,postFavouriteModel, favouriteSharedViewModel) }
 
 
                         FabIdentifier.DELETE_FAVOURITE.name -> deleteFavourite(
-                            favourite, tag,
-                            wallpapersSharedViewModel
-
+                            favourite,
+                            favouriteSharedViewModel,
+                            tag
                         )
+
+
                         FabIdentifier.SET_AS_WALLPAPER.name -> onShowDialog(showDialog)
 //
                         FabIdentifier.DOWNLOAD.name -> imageUrl?.let {
@@ -116,7 +120,7 @@ fun WallpapersDetailScreen(
         }
 
         if (imageId != null) {
-            wallpapersSharedViewModel.getFavourite(userId, imageId)
+            favouriteSharedViewModel.getFavourite(userId, imageId)
 
         }
 
@@ -150,26 +154,28 @@ fun ScreenContent(imageUrl: String) {
     }
 }
 
-private fun postFavourite(postFavouriteModel: PostFavourite, tag: String, viewModel: WallpapersSharedViewModel){
+private fun postFavourite(tag: String, postFavouriteModel: PostFavourite, viewModel: FavouriteSharedViewModel){
     viewModel.postFavourite(postFavouriteModel)
     Log.i(tag, "added to favourite")
 }
 
 private fun deleteFavourite(
     favourite: GetFavourite?,
-    tag: String,
-    viewModel: WallpapersSharedViewModel
+    viewModel: FavouriteSharedViewModel,
+    tag: String
 ) {
+
     if (favourite != null && !favourite.isEmpty()) {
         val favouriteId = favourite[0].id
         viewModel.deleteFavourite(favouriteId)
-        Log.i(tag, "deleted${favouriteId}")
+        Log.i(tag, "deleted")
     }
 }
 
 private fun onShowDialog(showDialog: MutableState<Boolean>){
     showDialog.value = true
 }
+
 
 
 

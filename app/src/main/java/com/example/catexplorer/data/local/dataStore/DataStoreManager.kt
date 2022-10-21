@@ -32,7 +32,7 @@ class DataStoreManager @Inject constructor(@ApplicationContext applicationContex
     }
 
 
-    val preferencesKey = stringPreferencesKey(userKey)
+    private val preferencesKey = stringPreferencesKey(userKey)
     val shrdFlow: Flow<String> = context.dataStore.data.map { preferences ->
         preferences[preferencesKey] ?: "null"
     }

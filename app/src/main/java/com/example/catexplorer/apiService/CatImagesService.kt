@@ -22,9 +22,16 @@ interface CatImagesService {
     ): Response<PostFavourite>
 
     @GET
-    suspend fun getFavourite(
+    suspend fun fetchFavourite(
         @Url url: String,
         @QueryMap filter: HashMap<String, String>,
         @Query("api_key") api_key: String,
     ): Response<GetFavourite>
+
+
+    @DELETE
+    suspend fun deleteFavourite(
+        @Url url: String,
+        @Query("api_key") api_key: String
+    )
 }

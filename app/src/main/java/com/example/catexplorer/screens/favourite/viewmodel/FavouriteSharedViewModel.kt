@@ -1,41 +1,38 @@
-package com.example.catexplorer.screens.wallpapers.viewmodel
+package com.example.catexplorer.screens.favourite.viewmodel
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.cachedIn
 import com.example.catexplorer.base.NetworkResult
 import com.example.catexplorer.repositories.CatsRepository
 import com.example.catexplorer.screens.favourite.model.GetFavourite
-import com.example.catexplorer.screens.wallpapers.model.CatImage
+import com.example.catexplorer.screens.favourite.model.GetFavouriteItem
 import com.example.catexplorer.screens.wallpapers.model.PostFavourite
-import com.example.catexplorer.screens.wallpapers.paging.CatImagesSource
-import com.example.catexplorer.utils.ApiConstants.Companion.catImage_NETWORK_PAGE_SIZE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+
 @HiltViewModel
-class WallpapersSharedViewModel @Inject constructor(private val repository: CatsRepository) :
+class FavouriteSharedViewModel @Inject constructor(private val repository: CatsRepository) :
     ViewModel() {
 
-    val items = Pager(PagingConfig(pageSize = catImage_NETWORK_PAGE_SIZE)) {
-        CatImagesSource(repository)
-    }.flow.cachedIn(viewModelScope)
 
-    var wallpaperImageItem  by mutableStateOf<CatImage?>(null)
+    val allFavourite: MutableState<NetworkResult<GetFavourite>> =
+        mutableStateOf(NetworkResult.Loading())
+
+    var favouriteImageItem  by mutableStateOf<GetFavouriteItem?>(null)
 
     val response: MutableState<NetworkResult<GetFavourite>> =
         mutableStateOf(NetworkResult.Loading())
 
 
-    fun addImageItem(image: CatImage){
-        wallpaperImageItem = image
+    fun addImageItem(image: GetFavouriteItem){
+        favouriteImageItem = image
     }
 
 
@@ -46,10 +43,10 @@ class WallpapersSharedViewModel @Inject constructor(private val repository: Cats
         }
     }
 
-   fun deleteFavourite(favourite_id: Int){
-       viewModelScope.launch {
-           repository.deleteFavourite(favourite_id)
-       }
+    fun deleteFavourite(favourite_id: Int){
+        viewModelScope.launch {
+            repository.deleteFavourite(favourite_id)
+        }
     }
 
 
@@ -61,6 +58,17 @@ class WallpapersSharedViewModel @Inject constructor(private val repository: Cats
 
         repository.getFavourite(filter).collect { values ->
             response.value = values
+        }
+    }
+
+    fun getAllFavourite(userId: String) {
+        viewModelScope.launch {
+           val filter = HashMap<String,String>()
+            filter["sub_id"] = userId
+            repository.getAllFavourite(filter).collect { values ->
+                Log.i("tag","item changed")
+               allFavourite.value = values
+            }
         }
     }
 }
