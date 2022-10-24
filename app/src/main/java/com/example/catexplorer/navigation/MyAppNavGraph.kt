@@ -9,10 +9,10 @@ import androidx.navigation.compose.composable
 import com.example.catexplorer.main.viewmodel.MainViewModel
 import com.example.catexplorer.navigation.BottomNavScreen
 import com.example.catexplorer.navigation.DetailsNavScreen
-import com.example.catexplorer.screens.FavouriteScreen
 import com.example.catexplorer.screens.WallpapersScreen
 import com.example.catexplorer.screens.fact.viewmodel.FactViewModel
 import com.example.catexplorer.screens.favourite.FavouriteDetailScreen
+import com.example.catexplorer.screens.favourite.FavouriteScreen
 import com.example.catexplorer.screens.favourite.viewmodel.FavouriteSharedViewModel
 import com.example.catexplorer.screens.wallpapers.WallpapersDetailScreen
 import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersSharedViewModel
