@@ -1,4 +1,4 @@
-package com.example.catexplorer.screens.wallpapers
+package com.example.catexplorer.common
 
 import android.app.DownloadManager
 import android.content.Context

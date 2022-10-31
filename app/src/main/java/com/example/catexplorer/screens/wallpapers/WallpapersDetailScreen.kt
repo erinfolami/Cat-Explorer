@@ -1,9 +1,5 @@
 package com.example.catexplorer.screens.wallpapers
 
-import android.content.Context
-import android.content.Intent
-import android.graphics.Bitmap
-import android.net.Uri
 import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,10 +13,10 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
-import androidx.core.content.FileProvider
 import coil.compose.AsyncImage
-import com.example.catexplorer.BuildConfig
 import com.example.catexplorer.R
+import com.example.catexplorer.common.downloadImage
+import com.example.catexplorer.common.shareImage
 import com.example.catexplorer.main.viewmodel.MainViewModel
 import com.example.catexplorer.screens.favourite.model.GetFavourite
 import com.example.catexplorer.screens.wallpapers.model.PostFavourite
@@ -29,12 +25,6 @@ import com.example.catexplorer.screens.wallpapers.multifab.MultiFabItem
 import com.example.catexplorer.screens.wallpapers.multifab.MultiFabState
 import com.example.catexplorer.screens.wallpapers.multifab.MultiFloatingActionButton
 import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersSharedViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.io.File
-import java.io.FileOutputStream
 
 
 @Composable
@@ -201,35 +191,5 @@ private fun onShowDialog(showDialog: MutableState<Boolean>) {
     showDialog.value = true
 }
 
-
-fun shareImage(imageUrl: String, scope: CoroutineScope, context: Context) {
-
-    scope.launch {
-        withContext(Dispatchers.IO) {
-
-
-            val cachePath = File(context.cacheDir, "images")
-            cachePath.mkdirs() // don't forget to make the directory
-            val stream =
-                FileOutputStream("$cachePath/image.png") // overwrites this image every time
-            getBitmap("TAG", context, imageUrl)?.compress(Bitmap.CompressFormat.PNG, 100, stream)
-            stream.close()
-
-            val imagePath = File(context.cacheDir, "images")
-            val newFile = File(imagePath, "image.png")
-            val contentUri: Uri = FileProvider.getUriForFile(
-                context,
-                "${BuildConfig.APPLICATION_ID}.provider",
-                newFile
-            )
-
-            val intent = Intent(Intent.ACTION_SEND)
-            intent.type = "image/*"
-            intent.putExtra(Intent.EXTRA_STREAM, contentUri)
-            context.startActivity(Intent.createChooser(intent, null))
-
-        }
-    }
-}
 
 

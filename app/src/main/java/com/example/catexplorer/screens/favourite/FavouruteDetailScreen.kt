@@ -14,11 +14,12 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import com.example.catexplorer.R
+import com.example.catexplorer.common.shareImage
 import com.example.catexplorer.main.viewmodel.MainViewModel
 import com.example.catexplorer.screens.favourite.model.GetFavourite
 import com.example.catexplorer.screens.favourite.viewmodel.FavouriteSharedViewModel
 import com.example.catexplorer.screens.wallpapers.WallpaperCustomDialog
-import com.example.catexplorer.screens.wallpapers.downloadImage
+import com.example.catexplorer.common.downloadImage
 import com.example.catexplorer.screens.wallpapers.model.PostFavourite
 import com.example.catexplorer.screens.wallpapers.multifab.FabIdentifier
 import com.example.catexplorer.screens.wallpapers.multifab.MultiFabItem
@@ -32,6 +33,9 @@ fun FavouriteDetailScreen(
 ) {
     val tag = "WallpapersDetailScreen"
     val context = LocalContext.current
+
+    val coroutineScope = rememberCoroutineScope()
+
 
     val userId = mainViewModel.dataStoreData.value
 
@@ -106,7 +110,13 @@ fun FavouriteDetailScreen(
                             )
                         }
 //
-//                        FabIdentifier.SHARE.name -> TODO
+                        FabIdentifier.SHARE.name ->  imageUrl?.let {
+                            shareImage(
+                                it,
+                                coroutineScope,
+                                context
+                            )
+                        }
 
                     }
                 }
