@@ -15,7 +15,7 @@ import com.example.catexplorer.screens.favourite.model.GetFavourite
 import com.example.catexplorer.screens.wallpapers.model.CatImage
 import com.example.catexplorer.screens.wallpapers.model.PostFavourite
 import com.example.catexplorer.screens.wallpapers.paging.CatImagesSource
-import com.example.catexplorer.utils.ApiConstants.Companion.catImage_NETWORK_PAGE_SIZE
+import com.example.catexplorer.utils.ApiConstants.catImage_NETWORK_PAGE_SIZE
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

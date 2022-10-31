@@ -2,7 +2,7 @@ package com.example.catexplorer.di
 
 import com.example.catexplorer.apiService.CatFactService
 import com.example.catexplorer.apiService.CatImagesService
-import com.example.catexplorer.utils.ApiConstants.Companion.CatFact_BASE_URL
+import com.example.catexplorer.utils.ApiConstants.CatFact_BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

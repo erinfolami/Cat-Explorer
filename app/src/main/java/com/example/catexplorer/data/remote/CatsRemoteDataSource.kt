@@ -4,12 +4,12 @@ import android.util.Log
 import com.example.catexplorer.apiService.CatFactService
 import com.example.catexplorer.apiService.CatImagesService
 import com.example.catexplorer.screens.wallpapers.model.PostFavourite
-import com.example.catexplorer.utils.ApiConstants.Companion.CatFact_BASE_URL
-import com.example.catexplorer.utils.ApiConstants.Companion.FACT_URL
-import com.example.catexplorer.utils.ApiConstants.Companion.FAVOURITE_URL
-import com.example.catexplorer.utils.ApiConstants.Companion.IMAGE_URL
-import com.example.catexplorer.utils.ApiConstants.Companion.TheCatApi_BASE_URL
-import com.example.catexplorer.utils.ApiConstants.Companion.api_key
+import com.example.catexplorer.utils.ApiConstants.CatFact_BASE_URL
+import com.example.catexplorer.utils.ApiConstants.FACT_URL
+import com.example.catexplorer.utils.ApiConstants.FAVOURITE_URL
+import com.example.catexplorer.utils.ApiConstants.IMAGE_URL
+import com.example.catexplorer.utils.ApiConstants.TheCatApi_BASE_URL
+import com.example.catexplorer.utils.ApiConstants.api_key
 import javax.inject.Inject
 
 class CatsRemoteDataSource @Inject constructor(
