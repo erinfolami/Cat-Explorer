@@ -24,6 +24,7 @@ fun BottomNavigationBar(navController: NavController, bottomBarState: MutableSta
     val items = listOf(
         BottomNavScreen.Fact,
         BottomNavScreen.Wallpapers,
+        BottomNavScreen.BreedInfo,
         BottomNavScreen.Favourite
     )
 

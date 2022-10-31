@@ -24,9 +24,13 @@ fun MainScreenView() {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
     when (navBackStackEntry?.destination?.route) {
+        // on this screens bottom bar should be hidden
         DetailsNavScreen.WallpapersDetail.route -> {
             bottomBarState.value = false
-        }  // on this screen bottom bar should be hidden
+        }
+        DetailsNavScreen.FavouritesDetail.route -> {
+            bottomBarState.value = false
+        }
         else -> bottomBarState.value = true
     }
 
