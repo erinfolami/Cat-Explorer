@@ -20,6 +20,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.SubcomposeAsyncImage
+import com.example.catexplorer.navigation.DetailsNavScreen
 import com.example.catexplorer.screens.wallpapers.model.CatImage
 import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersSharedViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
@@ -89,7 +90,7 @@ private fun ImageCard(modifier: Modifier, image: CatImage,viewModel: WallpapersS
                 .fillMaxWidth()
                 .clickable {
                     viewModel.addImageItem(image)
-                    navController.navigate(route = "WallpapersDetail") },
+                    navController.navigate(route = DetailsNavScreen.WallpapersDetail.route) },
             model = image.url,
             contentDescription = null,
             contentScale = ContentScale.FillHeight,

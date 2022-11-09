@@ -1,4 +1,4 @@
-package com.example.catexplorer
+package com.example.catexplorer.navigation
 
 import android.util.Log
 import androidx.compose.runtime.Composable
@@ -6,11 +6,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.catexplorer.FactScreen
 import com.example.catexplorer.main.viewmodel.MainViewModel
-import com.example.catexplorer.navigation.BottomNavScreen
-import com.example.catexplorer.navigation.DetailsNavScreen
 import com.example.catexplorer.screens.WallpapersScreen
+import com.example.catexplorer.screens.breed.BreedDetailScreen
 import com.example.catexplorer.screens.breed.BreedScreen
+import com.example.catexplorer.screens.breed.viewmodel.BreedSharedViewModel
 import com.example.catexplorer.screens.fact.viewmodel.FactViewModel
 import com.example.catexplorer.screens.favourite.FavouriteDetailScreen
 import com.example.catexplorer.screens.favourite.FavouriteScreen
@@ -24,6 +25,7 @@ fun NavigationGraph(navController: NavHostController) {
     val mainViewModel = hiltViewModel<MainViewModel>()
     val wallpapersSharedViewModel = hiltViewModel<WallpapersSharedViewModel>()
     val favouriteSharedViewModel = hiltViewModel<FavouriteSharedViewModel>()
+    val breedSharedViewModel = hiltViewModel<BreedSharedViewModel>()
 
 
     Log.i("MainViewModel", "user ID ${mainViewModel.dataStoreData.value}")
@@ -58,14 +60,21 @@ fun NavigationGraph(navController: NavHostController) {
 
         composable(DetailsNavScreen.FavouritesDetail.route) {
             val imageUrl = favouriteSharedViewModel.favouriteImageItem?.image?.url
-            Log.i("FavouriteDetail", "passed imageUrl $imageUrl")
+            Log.i("FavouriteDetail", "imageUrl $imageUrl")
 
             FavouriteDetailScreen(favouriteSharedViewModel, mainViewModel)
 
         }
 
         composable(BottomNavScreen.BreedInfo.route) {
-            BreedScreen()
+            BreedScreen(breedSharedViewModel,navController)
+        }
+
+        composable(DetailsNavScreen.BreedsDetail.route) {
+            val breedItem = breedSharedViewModel.breedItem
+            Log.i("breedDetail", "breedItem $breedItem")
+
+            BreedDetailScreen(breedSharedViewModel =  breedSharedViewModel)
         }
     }
 }

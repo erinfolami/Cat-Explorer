@@ -1,21 +1,17 @@
 package com.example.catexplorer
 
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.catexplorer.navigation.BottomNavScreen
 import com.example.catexplorer.navigation.DetailsNavScreen
+import com.example.catexplorer.navigation.NavigationGraph
 
 @Composable
 fun MainScreenView() {
@@ -29,6 +25,10 @@ fun MainScreenView() {
             bottomBarState.value = false
         }
         DetailsNavScreen.FavouritesDetail.route -> {
+            bottomBarState.value = false
+        }
+
+        DetailsNavScreen.BreedsDetail.route -> {
             bottomBarState.value = false
         }
         else -> bottomBarState.value = true

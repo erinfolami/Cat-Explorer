@@ -4,8 +4,10 @@ import android.util.Log
 import com.example.catexplorer.base.BaseApiResponse
 import com.example.catexplorer.base.NetworkResult
 import com.example.catexplorer.data.remote.CatsRemoteDataSource
+import com.example.catexplorer.screens.breed.model.GetBreeds
 import com.example.catexplorer.screens.fact.model.CatFactModel
 import com.example.catexplorer.screens.favourite.model.GetFavourite
+import com.example.catexplorer.screens.wallpapers.model.Breed
 import com.example.catexplorer.screens.wallpapers.model.PostFavourite
 import com.example.catexplorer.screens.wallpapers.model.CatImage
 import kotlinx.coroutines.Dispatchers
@@ -54,6 +56,12 @@ class CatsRepository @Inject constructor(
     suspend fun getAllFavourite(filter: HashMap<String, String>): Flow<NetworkResult<GetFavourite>> {
         return flow {
             emit(safeApiCall { catsRemoteDataSource.getAllFavourites(filter) })
+        }.flowOn(Dispatchers.IO)
+    }
+
+    suspend fun getBreeds(): Flow<NetworkResult<GetBreeds>> {
+        return flow {
+            emit(safeApiCall { catsRemoteDataSource.getBreeds() })
         }.flowOn(Dispatchers.IO)
     }
 

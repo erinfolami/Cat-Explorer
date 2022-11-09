@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
 import com.example.catexplorer.main.viewmodel.MainViewModel
+import com.example.catexplorer.navigation.DetailsNavScreen
 import com.example.catexplorer.screens.favourite.viewmodel.FavouriteSharedViewModel
 import com.example.catexplorer.screens.favourite.model.GetFavourite
 import com.example.catexplorer.screens.favourite.model.GetFavouriteItem
@@ -96,7 +97,7 @@ private fun ImageCard(
                 .fillMaxWidth()
                 .clickable {
                     viewModel.addImageItem(image)
-                    navController.navigate(route = "FavouritesDetail")
+                    navController.navigate(route = DetailsNavScreen.FavouritesDetail.route)
                 },
             model = image.image.url,
             contentDescription = null,

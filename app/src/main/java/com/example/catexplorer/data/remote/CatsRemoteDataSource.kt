@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.catexplorer.apiService.CatFactService
 import com.example.catexplorer.apiService.CatImagesService
 import com.example.catexplorer.screens.wallpapers.model.PostFavourite
+import com.example.catexplorer.utils.ApiConstants.BREED_URL
 import com.example.catexplorer.utils.ApiConstants.CatFact_BASE_URL
 import com.example.catexplorer.utils.ApiConstants.FACT_URL
 import com.example.catexplorer.utils.ApiConstants.FAVOURITE_URL
@@ -39,6 +40,8 @@ class CatsRemoteDataSource @Inject constructor(
             api_key
         )
     }
+
+    suspend fun getBreeds() = catImagesService.getBreeds(TheCatApi_BASE_URL + BREED_URL)
 
 
 }

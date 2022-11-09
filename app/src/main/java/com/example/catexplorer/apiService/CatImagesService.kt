@@ -1,6 +1,8 @@
 package com.example.catexplorer.apiService
 
+import com.example.catexplorer.screens.breed.model.GetBreeds
 import com.example.catexplorer.screens.favourite.model.GetFavourite
+import com.example.catexplorer.screens.wallpapers.model.Breed
 import com.example.catexplorer.screens.wallpapers.model.PostFavourite
 import com.example.catexplorer.screens.wallpapers.model.CatImage
 import retrofit2.Response
@@ -34,4 +36,7 @@ interface CatImagesService {
         @Url url: String,
         @Query("api_key") api_key: String
     )
+
+    @GET
+    suspend fun getBreeds(@Url url: String): Response<GetBreeds>
 }
