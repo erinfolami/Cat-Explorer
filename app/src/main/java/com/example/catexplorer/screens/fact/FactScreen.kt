@@ -98,7 +98,7 @@ fun ScreenContent(factViewModel: FactViewModel) {
 @Composable
 fun FloatingActionButton(modifier: Modifier, context: Context, factViewModel: FactViewModel) {
 
-    FloatingActionButton(modifier = modifier.padding(vertical = 100.dp),
+    FloatingActionButton(modifier = modifier.padding(vertical = 40.dp),
         backgroundColor = MaterialTheme.colors.primary,
         onClick = { shareCatFact(context, factViewModel) })
     {

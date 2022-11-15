@@ -103,7 +103,6 @@ fun WallpapersDetailScreen(
                         FabIdentifier.DELETE_FAVOURITE.name -> deleteFavourite(
                             favourite, tag,
                             wallpapersSharedViewModel,
-                            context
                         )
                         FabIdentifier.SET_AS_WALLPAPER.name -> onShowDialog(showDialog)
 
@@ -181,13 +180,10 @@ private fun deleteFavourite(
     favourite: GetFavourite?,
     tag: String,
     viewModel: WallpapersSharedViewModel,
-    context: Context
 ) {
     if (favourite != null && !favourite.isEmpty()) {
         val favouriteId = favourite[0].id
         viewModel.deleteFavourite(favouriteId)
-        val toast = Toast.makeText(context, "Favourite successfully deleted", Toast.LENGTH_SHORT)
-        toast.show()
         Log.i(tag, "deleted${favouriteId}")
     }
 }
