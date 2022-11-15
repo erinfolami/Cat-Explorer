@@ -1,6 +1,8 @@
 package com.example.catexplorer.screens.favourite
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -21,10 +23,10 @@ import com.example.catexplorer.screens.favourite.viewmodel.FavouriteSharedViewMo
 import com.example.catexplorer.screens.wallpapers.WallpaperCustomDialog
 import com.example.catexplorer.common.downloadImage
 import com.example.catexplorer.screens.wallpapers.model.PostFavourite
-import com.example.catexplorer.screens.wallpapers.multifab.FabIdentifier
-import com.example.catexplorer.screens.wallpapers.multifab.MultiFabItem
-import com.example.catexplorer.screens.wallpapers.multifab.MultiFabState
-import com.example.catexplorer.screens.wallpapers.multifab.MultiFloatingActionButton
+import com.example.catexplorer.multifab.FabIdentifier
+import com.example.catexplorer.multifab.MultiFabItem
+import com.example.catexplorer.multifab.MultiFabState
+import com.example.catexplorer.multifab.MultiFloatingActionButton
 
 @Composable
 fun FavouriteDetailScreen(
@@ -97,19 +99,20 @@ fun FavouriteDetailScreen(
                         FabIdentifier.DELETE_FAVOURITE.name -> deleteFavourite(
                             favourite,
                             favouriteSharedViewModel,
-                            tag
+                            tag,
+                            context
                         )
 
 
                         FabIdentifier.SET_AS_WALLPAPER.name -> onShowDialog(showDialog)
-//
+
                         FabIdentifier.DOWNLOAD.name -> imageUrl?.let {
                             downloadImage(
                                 tag, context,
                                 it
                             )
                         }
-//
+
                         FabIdentifier.SHARE.name ->  imageUrl?.let {
                             shareImage(
                                 it,
@@ -172,14 +175,18 @@ private fun postFavourite(tag: String, postFavouriteModel: PostFavourite, viewMo
 private fun deleteFavourite(
     favourite: GetFavourite?,
     viewModel: FavouriteSharedViewModel,
-    tag: String
+    tag: String,
+    context: Context
 ) {
 
     if (favourite != null && !favourite.isEmpty()) {
         val favouriteId = favourite[0].id
         viewModel.deleteFavourite(favouriteId)
+        Toast.makeText(context, "Favourite successfully deleted", Toast.LENGTH_SHORT).show()
         Log.i(tag, "deleted")
     }
+
+
 }
 
 private fun onShowDialog(showDialog: MutableState<Boolean>){

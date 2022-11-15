@@ -123,7 +123,7 @@ fun BreedListItem(breed: BreedItem, viewModel: BreedSharedViewModel, navControll
             modifier = Modifier
                 .width(120.dp)
                 .height(80.dp)
-                .clip(RoundedCornerShape(13.dp))
+                .clip(RoundedCornerShape(12.dp))
         ) {
             SubcomposeAsyncImage(
                 model = breed.image.url,

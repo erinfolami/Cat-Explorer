@@ -1,4 +1,4 @@
-package com.example.catexplorer.screens.wallpapers.multifab
+package com.example.catexplorer.multifab
 
 import androidx.compose.animation.core.Transition
 import androidx.compose.animation.core.animateFloat
@@ -61,13 +61,17 @@ fun MultiFloatingActionButton(
             }
         }
 
-        FloatingActionButton(onClick = {
-            stateChanged(
-                if (transition.currentState == MultiFabState.EXPANDED) {
-                    MultiFabState.COLLAPSED
-                } else MultiFabState.EXPANDED
-            )
-        }, modifier = Modifier.paddingFromBaseline(bottom = 150.dp))
+        FloatingActionButton(
+            onClick = {
+                stateChanged(
+                    if (transition.currentState == MultiFabState.EXPANDED) {
+                        MultiFabState.COLLAPSED
+                    } else MultiFabState.EXPANDED
+                )
+            },
+            modifier = Modifier.paddingFromBaseline(bottom = 150.dp),
+            backgroundColor = MaterialTheme.colors.primary
+        )
         {
             Icon(
                 imageVector = fabIcon,
@@ -88,7 +92,7 @@ fun MiniFabItem(
 ) {
 
     val interactionSource = remember { MutableInteractionSource() }
-    val buttonColor = MaterialTheme.colors.secondary
+    val buttonColor = MaterialTheme.colors.primary
 
     Row(
         verticalAlignment = Alignment.CenterVertically,

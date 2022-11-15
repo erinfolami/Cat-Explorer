@@ -1,6 +1,8 @@
 package com.example.catexplorer.screens.wallpapers
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.FabPosition
@@ -15,15 +17,16 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import coil.compose.AsyncImage
 import com.example.catexplorer.R
+import com.example.catexplorer.base.NetworkResult
 import com.example.catexplorer.common.downloadImage
 import com.example.catexplorer.common.shareImage
 import com.example.catexplorer.main.viewmodel.MainViewModel
 import com.example.catexplorer.screens.favourite.model.GetFavourite
 import com.example.catexplorer.screens.wallpapers.model.PostFavourite
-import com.example.catexplorer.screens.wallpapers.multifab.FabIdentifier
-import com.example.catexplorer.screens.wallpapers.multifab.MultiFabItem
-import com.example.catexplorer.screens.wallpapers.multifab.MultiFabState
-import com.example.catexplorer.screens.wallpapers.multifab.MultiFloatingActionButton
+import com.example.catexplorer.multifab.FabIdentifier
+import com.example.catexplorer.multifab.MultiFabItem
+import com.example.catexplorer.multifab.MultiFabState
+import com.example.catexplorer.multifab.MultiFloatingActionButton
 import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersSharedViewModel
 
 
@@ -44,7 +47,6 @@ fun WallpapersDetailScreen(
 
     val coroutineScope = rememberCoroutineScope()
     val userId = mainViewModel.dataStoreData.value
-
 
     val items = listOf(
         MultiFabItem(
@@ -100,18 +102,18 @@ fun WallpapersDetailScreen(
 
                         FabIdentifier.DELETE_FAVOURITE.name -> deleteFavourite(
                             favourite, tag,
-                            wallpapersSharedViewModel
-
+                            wallpapersSharedViewModel,
+                            context
                         )
                         FabIdentifier.SET_AS_WALLPAPER.name -> onShowDialog(showDialog)
-//
+
                         FabIdentifier.DOWNLOAD.name -> imageUrl?.let {
                             downloadImage(
                                 tag, context,
                                 it
                             )
                         }
-//
+
                         FabIdentifier.SHARE.name -> imageUrl?.let {
                             shareImage(
                                 it,
@@ -178,11 +180,14 @@ private fun postFavourite(
 private fun deleteFavourite(
     favourite: GetFavourite?,
     tag: String,
-    viewModel: WallpapersSharedViewModel
+    viewModel: WallpapersSharedViewModel,
+    context: Context
 ) {
     if (favourite != null && !favourite.isEmpty()) {
         val favouriteId = favourite[0].id
         viewModel.deleteFavourite(favouriteId)
+        val toast = Toast.makeText(context, "Favourite successfully deleted", Toast.LENGTH_SHORT)
+        toast.show()
         Log.i(tag, "deleted${favouriteId}")
     }
 }

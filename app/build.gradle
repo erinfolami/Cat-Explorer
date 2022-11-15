@@ -97,7 +97,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.0"
 
     //Paging 3.0
-    implementation 'androidx.paging:paging-compose:1.0.0-alpha15'
+    implementation 'androidx.paging:paging-compose:1.0.0-alpha17'
 
     //Coil dependencies
     implementation("io.coil-kt:coil-compose:2.1.0")
@@ -119,6 +119,10 @@ dependencies {
 
     //DataStore dependencies
     implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    //Compose-ratingbar dependencies
+    implementation 'io.github.a914-gowtham:compose-ratingbar:1.0.6'
+
 }
 
 // Allow references to generated code

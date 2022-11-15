@@ -1,4 +1,4 @@
-package com.example.catexplorer.screens.wallpapers.multifab
+package com.example.catexplorer.multifab
 
 import androidx.compose.ui.graphics.ImageBitmap
 

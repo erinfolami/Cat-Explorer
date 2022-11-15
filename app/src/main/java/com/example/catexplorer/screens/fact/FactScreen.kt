@@ -43,13 +43,13 @@ fun FactScreen(factViewModel: FactViewModel) {
     )
 
     {
-      ScreenContent(factViewModel)
+        ScreenContent(factViewModel)
     }
 
 }
 
 @Composable
-fun ScreenContent(factViewModel: FactViewModel){
+fun ScreenContent(factViewModel: FactViewModel) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -57,7 +57,7 @@ fun ScreenContent(factViewModel: FactViewModel){
     ) {
         val offset = Offset(5.0f, 10.0f)
 
-        Text( 
+        Text(
             text = "Cat Facts!!!",
             fontWeight = FontWeight.Bold,
             fontSize = 25.sp,
@@ -98,7 +98,8 @@ fun ScreenContent(factViewModel: FactViewModel){
 @Composable
 fun FloatingActionButton(modifier: Modifier, context: Context, factViewModel: FactViewModel) {
 
-    FloatingActionButton(modifier = modifier.padding(vertical = 100.dp), backgroundColor = MaterialTheme.colors.primary,
+    FloatingActionButton(modifier = modifier.padding(vertical = 100.dp),
+        backgroundColor = MaterialTheme.colors.primary,
         onClick = { shareCatFact(context, factViewModel) })
     {
         Icon(Icons.Outlined.Share, contentDescription = "Share Fact")
