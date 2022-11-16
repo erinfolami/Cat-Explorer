@@ -16,6 +16,8 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import com.example.catexplorer.R
+import com.example.catexplorer.common.FavouriteUtil.deleteFavourite
+import com.example.catexplorer.common.FavouriteUtil.postFavourite
 import com.example.catexplorer.common.shareImage
 import com.example.catexplorer.main.viewmodel.MainViewModel
 import com.example.catexplorer.screens.favourite.model.GetFavourite
@@ -49,7 +51,6 @@ fun FavouriteDetailScreen(
     val favourite = favouriteSharedViewModel.response.value.data
 
     val postFavouriteModel = imageId?.let { PostFavourite(it, userId) }
-
 
 
     val items = listOf(
@@ -93,14 +94,19 @@ fun FavouriteDetailScreen(
                 stateChanged = { state -> toState = state },
                 onFabItemClicked = { item ->
                     when (item.identifier) {
-                        FabIdentifier.FAVOURITE.name -> postFavouriteModel?.let { postFavourite(tag,postFavouriteModel, favouriteSharedViewModel) }
+                        FabIdentifier.FAVOURITE.name -> postFavouriteModel?.let {
+                            postFavourite(
+                                postFavouriteModel,
+                                tag,
+                                favouriteSharedViewModel
+                            )
+                        }
 
 
                         FabIdentifier.DELETE_FAVOURITE.name -> deleteFavourite(
                             favourite,
-                            favouriteSharedViewModel,
                             tag,
-                            context
+                            favouriteSharedViewModel,
                         )
 
 
@@ -113,7 +119,7 @@ fun FavouriteDetailScreen(
                             )
                         }
 
-                        FabIdentifier.SHARE.name ->  imageUrl?.let {
+                        FabIdentifier.SHARE.name -> imageUrl?.let {
                             shareImage(
                                 it,
                                 coroutineScope,
@@ -167,29 +173,8 @@ fun ScreenContent(imageUrl: String) {
     }
 }
 
-private fun postFavourite(tag: String, postFavouriteModel: PostFavourite, viewModel: FavouriteSharedViewModel){
-    viewModel.postFavourite(postFavouriteModel)
-    Log.i(tag, "added to favourite")
-}
 
-private fun deleteFavourite(
-    favourite: GetFavourite?,
-    viewModel: FavouriteSharedViewModel,
-    tag: String,
-    context: Context
-) {
-
-    if (favourite != null && !favourite.isEmpty()) {
-        val favouriteId = favourite[0].id
-        viewModel.deleteFavourite(favouriteId)
-        Toast.makeText(context, "Favourite successfully deleted", Toast.LENGTH_SHORT).show()
-        Log.i(tag, "deleted")
-    }
-
-
-}
-
-private fun onShowDialog(showDialog: MutableState<Boolean>){
+private fun onShowDialog(showDialog: MutableState<Boolean>) {
     showDialog.value = true
 }
 

@@ -6,15 +6,11 @@ import android.util.Log
 import androidx.core.graphics.drawable.toBitmap
 import coil.imageLoader
 import coil.request.ImageRequest
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 object BitmapUtil {
 
 
-    suspend fun getBitmap(tag: String, context: Context, imageUrl: String): Bitmap? {
+    suspend fun getBitmapFromUrl(tag: String, context: Context, imageUrl: String): Bitmap? {
 
         var bitmap: Bitmap? = null
 

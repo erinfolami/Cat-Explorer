@@ -23,7 +23,7 @@ fun shareImage(imageUrl: String, scope: CoroutineScope, context: Context) {
             cachePath.mkdirs() // don't forget to make the directory
             val stream =
                 FileOutputStream("$cachePath/image.png") // overwrites this image every time
-            BitmapUtil.getBitmap("TAG", context, imageUrl)
+            BitmapUtil.getBitmapFromUrl("TAG", context, imageUrl)
                 ?.compress(Bitmap.CompressFormat.PNG, 100, stream)
             stream.close()
 

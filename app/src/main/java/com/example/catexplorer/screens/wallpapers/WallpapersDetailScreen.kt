@@ -1,8 +1,5 @@
 package com.example.catexplorer.screens.wallpapers
 
-import android.content.Context
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.FabPosition
@@ -17,11 +14,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import coil.compose.AsyncImage
 import com.example.catexplorer.R
-import com.example.catexplorer.base.NetworkResult
+import com.example.catexplorer.common.FavouriteUtil
+import com.example.catexplorer.common.FavouriteUtil.deleteFavourite
+import com.example.catexplorer.common.FavouriteUtil.postFavourite
 import com.example.catexplorer.common.downloadImage
 import com.example.catexplorer.common.shareImage
 import com.example.catexplorer.main.viewmodel.MainViewModel
-import com.example.catexplorer.screens.favourite.model.GetFavourite
 import com.example.catexplorer.screens.wallpapers.model.PostFavourite
 import com.example.catexplorer.multifab.FabIdentifier
 import com.example.catexplorer.multifab.MultiFabItem
@@ -167,26 +165,6 @@ fun ScreenContent(imageUrl: String) {
     }
 }
 
-private fun postFavourite(
-    postFavouriteModel: PostFavourite,
-    tag: String,
-    viewModel: WallpapersSharedViewModel
-) {
-    viewModel.postFavourite(postFavouriteModel)
-    Log.i(tag, "added to favourite")
-}
-
-private fun deleteFavourite(
-    favourite: GetFavourite?,
-    tag: String,
-    viewModel: WallpapersSharedViewModel,
-) {
-    if (favourite != null && !favourite.isEmpty()) {
-        val favouriteId = favourite[0].id
-        viewModel.deleteFavourite(favouriteId)
-        Log.i(tag, "deleted${favouriteId}")
-    }
-}
 
 private fun onShowDialog(showDialog: MutableState<Boolean>) {
     showDialog.value = true

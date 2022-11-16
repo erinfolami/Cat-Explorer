@@ -1,9 +1,7 @@
 package com.example.catexplorer.screens.wallpapers
 
 import android.app.WallpaperManager
-import android.content.ContentValues
 import android.content.Context
-import android.graphics.Bitmap
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
@@ -25,11 +23,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
-import androidx.core.graphics.drawable.toBitmap
-import coil.imageLoader
-import coil.request.ImageRequest
 import com.example.catexplorer.R
-import com.example.catexplorer.common.BitmapUtil.getBitmap
+import com.example.catexplorer.common.BitmapUtil.getBitmapFromUrl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -173,7 +168,7 @@ fun setHomeWallpaper(
     scope.launch {
         withContext(Dispatchers.IO) {
             var result = wallpaperManager.setBitmap(
-                getBitmap(tag, context, imageUrl),
+                getBitmapFromUrl(tag, context, imageUrl),
                 null,
                 false,
                 WallpaperManager.FLAG_SYSTEM
@@ -208,7 +203,7 @@ fun setLockWallpaper(
     scope.launch {
         withContext(Dispatchers.IO) {
             var result = wallpaperManager.setBitmap(
-                getBitmap(tag, context, imageUrl),
+                getBitmapFromUrl(tag, context, imageUrl),
                 null,
                 false,
                 WallpaperManager.FLAG_LOCK
@@ -241,7 +236,7 @@ fun setHomeAndLockWallpaper(
     scope.launch {
         withContext(Dispatchers.IO) {
             var result = wallpaperManager.setBitmap(
-                getBitmap(tag, context, imageUrl),
+                getBitmapFromUrl(tag, context, imageUrl),
                 null,
                 false,
                 WallpaperManager.FLAG_SYSTEM or WallpaperManager.FLAG_LOCK
