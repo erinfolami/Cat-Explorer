@@ -2,9 +2,13 @@ package com.example.catexplorer.screens.favourite
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,7 +26,11 @@ import com.example.catexplorer.R
 @Composable
 fun EmptyFavourite(modifier: Modifier, navController: NavController) {
 
-    Column(modifier = modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+    val scrollState = rememberScrollState()
+
+    Column(modifier = modifier
+        .fillMaxSize()
+        .verticalScroll(state = scrollState), horizontalAlignment = Alignment.CenterHorizontally) {
         Image(
             painter = painterResource(id = R.drawable.empty_favourite),
             contentDescription = "null",

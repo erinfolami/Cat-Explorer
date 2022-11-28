@@ -4,10 +4,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.primarySurface
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import com.example.catexplorer.MainScreenView
+import com.example.catexplorer.R
 import com.example.catexplorer.ui.theme.CatExplorerTheme
+import com.example.catexplorer.ui.theme.DarkCharcoal
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,10 +22,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
 
-            // Updates the status bar color
             val systemUiController = rememberSystemUiController()
+
             SideEffect {
-                systemUiController.setStatusBarColor(Color.DarkGray)
+                systemUiController.let {
+                    it.setStatusBarColor(Color.DarkGray)
+                    it.setNavigationBarColor(color = DarkCharcoal)
+                }
             }
 
             CatExplorerTheme(darkTheme = true) {
