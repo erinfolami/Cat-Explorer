@@ -7,13 +7,11 @@ import com.example.catexplorer.base.NetworkResult
 import com.example.catexplorer.repositories.CatsRepository
 import com.example.catexplorer.screens.fact.model.CatFactModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
-
+import kotlinx.coroutines.launch
 
 @HiltViewModel
-class FactViewModel @Inject constructor
-    (
+class FactViewModel @Inject constructor(
     private val repository: CatsRepository,
 ) : ViewModel() {
 

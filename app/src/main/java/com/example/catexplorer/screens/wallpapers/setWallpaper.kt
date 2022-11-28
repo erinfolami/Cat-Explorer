@@ -113,7 +113,6 @@ fun WallpaperCustomDialog(
                     )
 
                     Text(text = "Set on Lock Screen", Modifier.padding(start = 15.dp))
-
                 }
 
                 Spacer(modifier = Modifier.height(25.dp))
@@ -146,16 +145,11 @@ fun WallpaperCustomDialog(
                     )
 
                     Text(text = "Set on Lock and Home Screens", Modifier.padding(start = 15.dp))
-
                 }
-
             }
         }
     }
 }
-
-
-
 
 fun setHomeWallpaper(
     tag: String,
@@ -172,11 +166,11 @@ fun setHomeWallpaper(
                 null,
                 false,
                 WallpaperManager.FLAG_SYSTEM
-            );
+            )
             if (result != 0) {
                 Log.i(tag, "HomeWallpaper Set Successfully")
 
-                //Using Handler to show Toast from a non UI Thread as Toast.makeText() and
+                // Using Handler to show Toast from a non UI Thread as Toast.makeText() and
                 // other functions dealing with UI needs to be called within the main thread
                 Handler(Looper.getMainLooper()).post {
                     val toast = Toast.makeText(
@@ -189,9 +183,7 @@ fun setHomeWallpaper(
             }
         }
     }
-
 }
-
 
 fun setLockWallpaper(
     tag: String,
@@ -207,11 +199,11 @@ fun setLockWallpaper(
                 null,
                 false,
                 WallpaperManager.FLAG_LOCK
-            );
+            )
             if (result != 0) {
                 Log.i(tag, "LockWallpaper Set Successfully")
 
-                //Using Handler to show Toast from a non UI Thread
+                // Using Handler to show Toast from a non UI Thread
                 Handler(Looper.getMainLooper()).post {
                     val toast = Toast.makeText(
                         context,
@@ -224,7 +216,6 @@ fun setLockWallpaper(
         }
     }
 }
-
 
 fun setHomeAndLockWallpaper(
     tag: String,
@@ -240,11 +231,11 @@ fun setHomeAndLockWallpaper(
                 null,
                 false,
                 WallpaperManager.FLAG_SYSTEM or WallpaperManager.FLAG_LOCK
-            );
+            )
             if (result != 0) {
                 Log.i(tag, "HomeAndWallpaper Set Successfully")
 
-                //Using Handler to show Toast from a non UI Thread
+                // Using Handler to show Toast from a non UI Thread
                 Handler(Looper.getMainLooper()).post {
                     val toast = Toast.makeText(
                         context,
@@ -257,5 +248,3 @@ fun setHomeAndLockWallpaper(
         }
     }
 }
-
-

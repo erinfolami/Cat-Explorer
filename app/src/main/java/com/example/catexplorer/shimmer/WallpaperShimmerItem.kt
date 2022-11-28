@@ -26,4 +26,3 @@ fun WallpaperShimmerItem(brush: Brush) {
         )
     }
 }
-

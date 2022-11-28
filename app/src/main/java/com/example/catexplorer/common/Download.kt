@@ -24,7 +24,10 @@ fun downloadImage(tag: String, context: Context, imageUrl: String) {
 
     try {
         val request = DownloadManager.Request(downloadUri).apply {
-            setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
+            setAllowedNetworkTypes(
+                DownloadManager.Request.NETWORK_WIFI or
+                    DownloadManager.Request.NETWORK_MOBILE
+            )
                 .setAllowedOverRoaming(false)
                 .setTitle(imageUrlSubString)
                 .setDescription("")
@@ -39,12 +42,10 @@ fun downloadImage(tag: String, context: Context, imageUrl: String) {
             context,
             "Image downloaded at $directory" + File.separator + imageUrlSubString,
             Toast.LENGTH_SHORT
-        ).show();
+        ).show()
         Log.i(tag, "Image download started.")
-
     } catch (e: Exception) {
-        Toast.makeText(context, "Image download failed", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Image download failed", Toast.LENGTH_SHORT).show()
         Log.i(tag, "Image download failed. Exception: $e")
     }
-
 }

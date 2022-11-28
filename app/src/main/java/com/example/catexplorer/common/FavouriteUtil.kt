@@ -35,7 +35,7 @@ object FavouriteUtil {
                 if (favourite != null && !favourite.isEmpty()) {
                     val favouriteId = favourite[0].id
                     viewModel.deleteFavourite(favouriteId)
-                    Log.i(tag, "deleted${favouriteId}")
+                    Log.i(tag, "deleted$favouriteId")
                 }
             }
 
@@ -43,10 +43,9 @@ object FavouriteUtil {
                 if (favourite != null && !favourite.isEmpty()) {
                     val favouriteId = favourite[0].id
                     viewModel.deleteFavourite(favouriteId)
-                    Log.i(tag, "deleted${favouriteId}")
+                    Log.i(tag, "deleted$favouriteId")
                 }
             }
         }
     }
-
 }

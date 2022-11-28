@@ -27,9 +27,7 @@ fun NavigationGraph(navController: NavHostController) {
     val favouriteSharedViewModel = hiltViewModel<FavouriteSharedViewModel>()
     val breedSharedViewModel = hiltViewModel<BreedSharedViewModel>()
 
-
     Log.i("MainViewModel", "user ID ${mainViewModel.dataStoreData.value}")
-
 
     NavHost(navController, startDestination = BottomNavScreen.Fact.route) {
 
@@ -37,7 +35,6 @@ fun NavigationGraph(navController: NavHostController) {
             val viewModel = hiltViewModel<FactViewModel>()
             FactScreen(viewModel)
         }
-
 
         composable(BottomNavScreen.Wallpapers.route) {
             WallpapersScreen(wallpapersSharedViewModel, navController)
@@ -48,7 +45,6 @@ fun NavigationGraph(navController: NavHostController) {
             Log.i("WallpapersDetail", "passed imageUrl $imageUrl")
 
             WallpapersDetailScreen(wallpapersSharedViewModel, mainViewModel)
-
         }
 
         composable(BottomNavScreen.Favourite.route) {
@@ -63,18 +59,17 @@ fun NavigationGraph(navController: NavHostController) {
             Log.i("FavouriteDetail", "imageUrl $imageUrl")
 
             FavouriteDetailScreen(favouriteSharedViewModel, mainViewModel)
-
         }
 
         composable(BottomNavScreen.BreedInfo.route) {
-            BreedScreen(breedSharedViewModel,navController)
+            BreedScreen(breedSharedViewModel, navController)
         }
 
         composable(DetailsNavScreen.BreedsDetail.route) {
             val breedItem = breedSharedViewModel.breedItem
             Log.i("breedDetail", "breedItem $breedItem")
 
-            BreedDetailScreen(breedSharedViewModel =  breedSharedViewModel)
+            BreedDetailScreen(breedSharedViewModel = breedSharedViewModel)
         }
     }
 }

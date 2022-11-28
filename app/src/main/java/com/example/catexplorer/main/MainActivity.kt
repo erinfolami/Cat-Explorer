@@ -3,13 +3,9 @@ package com.example.catexplorer.main
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.primarySurface
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import com.example.catexplorer.MainScreenView
-import com.example.catexplorer.R
 import com.example.catexplorer.ui.theme.CatExplorerTheme
 import com.example.catexplorer.ui.theme.DarkCharcoal
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -34,7 +30,6 @@ class MainActivity : ComponentActivity() {
             CatExplorerTheme(darkTheme = true) {
                 MainScreenView()
             }
-
         }
     }
 }

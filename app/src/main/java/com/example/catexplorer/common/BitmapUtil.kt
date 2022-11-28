@@ -9,7 +9,6 @@ import coil.request.ImageRequest
 
 object BitmapUtil {
 
-
     suspend fun getBitmapFromUrl(tag: String, context: Context, imageUrl: String): Bitmap? {
 
         var bitmap: Bitmap? = null

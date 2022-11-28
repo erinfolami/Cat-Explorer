@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
 }
 
 def apikeyPropertiesFile = rootProject.file("local.properties")
@@ -55,6 +56,18 @@ android {
     }
 }
 
+tasks.getByPath("preBuild").dependsOn("ktlintFormat")
+
+ktlint{
+    android = true
+    ignoreFailures = false
+    disabledRules = ["no-wildcard-imports"]
+    reporters {
+        reporter "plain"
+        reporter "checkstyle"
+        reporter "sarif"
+    }
+}
 
 
 dependencies {

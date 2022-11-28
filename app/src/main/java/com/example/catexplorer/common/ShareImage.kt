@@ -6,18 +6,17 @@ import android.graphics.Bitmap
 import android.net.Uri
 import androidx.core.content.FileProvider
 import com.example.catexplorer.BuildConfig
+import java.io.File
+import java.io.FileOutputStream
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.File
-import java.io.FileOutputStream
 
 fun shareImage(imageUrl: String, scope: CoroutineScope, context: Context) {
 
     scope.launch {
         withContext(Dispatchers.IO) {
-
 
             val cachePath = File(context.cacheDir, "images")
             cachePath.mkdirs() // don't forget to make the directory
@@ -39,7 +38,6 @@ fun shareImage(imageUrl: String, scope: CoroutineScope, context: Context) {
             intent.type = "image/*"
             intent.putExtra(Intent.EXTRA_STREAM, contentUri)
             context.startActivity(Intent.createChooser(intent, null))
-
         }
     }
 }

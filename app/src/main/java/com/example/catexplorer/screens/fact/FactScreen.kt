@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat.startActivity
 import com.example.catexplorer.screens.fact.viewmodel.FactViewModel
 
-
 @Composable
 fun FactScreen(factViewModel: FactViewModel) {
 
@@ -40,12 +39,9 @@ fun FactScreen(factViewModel: FactViewModel) {
             )
         },
         floatingActionButtonPosition = FabPosition.End
-    )
-
-    {
+    ) {
         ScreenContent(factViewModel)
     }
-
 }
 
 @Composable
@@ -80,33 +76,30 @@ fun ScreenContent(factViewModel: FactViewModel) {
             )
         }
 
-
         Button(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(98.dp)
                 .padding(25.dp)
                 .clip(CircleShape),
-            onClick = { fetchData(factViewModel) }) {
+            onClick = { fetchData(factViewModel) }
+        ) {
             Text(text = "Get Cat Fact")
         }
-
     }
 }
-
 
 @Composable
 fun FloatingActionButton(modifier: Modifier, context: Context, factViewModel: FactViewModel) {
 
-    FloatingActionButton(modifier = modifier.padding(vertical = 40.dp),
+    FloatingActionButton(
+        modifier = modifier.padding(vertical = 40.dp),
         backgroundColor = MaterialTheme.colors.primary,
-        onClick = { shareCatFact(context, factViewModel) })
-    {
+        onClick = { shareCatFact(context, factViewModel) }
+    ) {
         Icon(Icons.Outlined.Share, contentDescription = "Share Fact")
     }
-
 }
-
 
 private fun fetchData(factViewModel: FactViewModel) {
     factViewModel.fetchCatResponse()
@@ -131,9 +124,9 @@ fun shareCatFact(context: Context, factViewModel: FactViewModel) {
     }
 }
 
-//@Preview
-//@Composable
-//fun PreviewMessageCard() {
+// @Preview
+// @Composable
+// fun PreviewMessageCard() {
 //    val viewModel = hiltViewModel<MainViewModel>()
 //    FactScreen(viewModel)
-//}
+// }

@@ -21,8 +21,6 @@ import coil.compose.SubcomposeAsyncImage
 import com.example.catexplorer.screens.breed.model.BreedItem
 import com.example.catexplorer.screens.breed.viewmodel.BreedSharedViewModel
 import com.gowtham.ratingbar.RatingBar
-import com.gowtham.ratingbar.RatingBarStyle
-import com.gowtham.ratingbar.StepSize
 
 @Composable
 fun BreedDetailScreen(breedSharedViewModel: BreedSharedViewModel) {
@@ -104,7 +102,6 @@ fun ScreenContent(breedItem: BreedItem) {
             )
             Text(text = breedItem.weight.metric + " Kg", modifier = Modifier.padding(top = 5.dp))
 
-
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -112,9 +109,11 @@ fun ScreenContent(breedItem: BreedItem) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-                Text(text = "Adaptability", fontWeight = FontWeight.Bold, fontSize = 16.sp, modifier = Modifier.weight(1f))
+                Text(
+                    text = "Adaptability", fontWeight = FontWeight.Bold, fontSize = 16.sp,
+                    modifier = Modifier.weight(1f)
+                )
                 BreedRatingBar(value = breedItem.adaptability)
-
             }
 
             Row(
@@ -124,9 +123,11 @@ fun ScreenContent(breedItem: BreedItem) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-                Text(text = "Affection level", fontWeight = FontWeight.Bold, fontSize = 16.sp, modifier = Modifier.weight(1f))
+                Text(
+                    text = "Affection level", fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp, modifier = Modifier.weight(1f)
+                )
                 BreedRatingBar(value = breedItem.affection_level)
-
             }
 
             Row(
@@ -136,9 +137,13 @@ fun ScreenContent(breedItem: BreedItem) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-                Text(text = "Child friendly", fontWeight = FontWeight.Bold, fontSize = 16.sp, modifier = Modifier.weight(1f))
+                Text(
+                    text = "Child friendly",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    modifier = Modifier.weight(1f)
+                )
                 BreedRatingBar(value = breedItem.child_friendly)
-
             }
 
             Row(
@@ -148,9 +153,13 @@ fun ScreenContent(breedItem: BreedItem) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-                Text(text = "Dog friendly", fontWeight = FontWeight.Bold, fontSize = 16.sp, modifier = Modifier.weight(1f))
+                Text(
+                    text = "Dog friendly",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    modifier = Modifier.weight(1f)
+                )
                 BreedRatingBar(value = breedItem.dog_friendly)
-
             }
 
             Row(
@@ -160,9 +169,13 @@ fun ScreenContent(breedItem: BreedItem) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-                Text(text = "Energy level", fontWeight = FontWeight.Bold, fontSize = 16.sp, modifier = Modifier.weight(1f))
+                Text(
+                    text = "Energy level",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    modifier = Modifier.weight(1f)
+                )
                 BreedRatingBar(value = breedItem.energy_level)
-
             }
 
             Row(
@@ -172,9 +185,13 @@ fun ScreenContent(breedItem: BreedItem) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-                Text(text = "Grooming", fontWeight = FontWeight.Bold, fontSize = 16.sp, modifier = Modifier.weight(1f))
+                Text(
+                    text = "Grooming",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    modifier = Modifier.weight(1f)
+                )
                 BreedRatingBar(value = breedItem.grooming)
-
             }
 
             Row(
@@ -184,9 +201,13 @@ fun ScreenContent(breedItem: BreedItem) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-                Text(text = "Health issues", fontWeight = FontWeight.Bold, fontSize = 16.sp, modifier = Modifier.weight(1f))
+                Text(
+                    text = "Health issues",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    modifier = Modifier.weight(1f)
+                )
                 BreedRatingBar(value = breedItem.health_issues)
-
             }
 
             Row(
@@ -196,9 +217,13 @@ fun ScreenContent(breedItem: BreedItem) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-                Text(text = "intelligence", fontWeight = FontWeight.Bold, fontSize = 16.sp, modifier = Modifier.weight(1f))
+                Text(
+                    text = "intelligence",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    modifier = Modifier.weight(1f)
+                )
                 BreedRatingBar(value = breedItem.intelligence)
-
             }
 
             Row(
@@ -208,7 +233,12 @@ fun ScreenContent(breedItem: BreedItem) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-                Text(text = "Shedding level", fontWeight = FontWeight.Bold, fontSize = 16.sp, modifier = Modifier.weight(1f))
+                Text(
+                    text = "Shedding level",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    modifier = Modifier.weight(1f)
+                )
                 BreedRatingBar(value = breedItem.shedding_level)
             }
 
@@ -219,9 +249,13 @@ fun ScreenContent(breedItem: BreedItem) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-                Text(text = "Social needs", fontWeight = FontWeight.Bold, fontSize = 16.sp, modifier = Modifier.weight(1f))
+                Text(
+                    text = "Social needs",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    modifier = Modifier.weight(1f)
+                )
                 BreedRatingBar(value = breedItem.social_needs)
-
             }
 
             Row(
@@ -231,9 +265,13 @@ fun ScreenContent(breedItem: BreedItem) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-                Text(text = "Stranger friendly", fontWeight = FontWeight.Bold, fontSize = 16.sp, modifier = Modifier.weight(1f))
+                Text(
+                    text = "Stranger friendly",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    modifier = Modifier.weight(1f)
+                )
                 BreedRatingBar(value = breedItem.stranger_friendly)
-
             }
 
             Row(
@@ -243,9 +281,13 @@ fun ScreenContent(breedItem: BreedItem) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-                Text(text = "Vocalisation", fontWeight = FontWeight.Bold, fontSize = 16.sp, modifier = Modifier.weight(1f))
+                Text(
+                    text = "Vocalisation",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    modifier = Modifier.weight(1f)
+                )
                 BreedRatingBar(value = breedItem.vocalisation)
-
             }
 
             Row(
@@ -255,9 +297,13 @@ fun ScreenContent(breedItem: BreedItem) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-                Text(text = "Experimental", fontWeight = FontWeight.Bold, fontSize = 16.sp, modifier = Modifier.weight(1f))
+                Text(
+                    text = "Experimental",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    modifier = Modifier.weight(1f)
+                )
                 BreedRatingBar(value = breedItem.experimental)
-
             }
 
             Row(
@@ -267,9 +313,13 @@ fun ScreenContent(breedItem: BreedItem) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-                Text(text = "Hairless", fontWeight = FontWeight.Bold, fontSize = 16.sp, modifier = Modifier.weight(1f))
+                Text(
+                    text = "Hairless",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    modifier = Modifier.weight(1f)
+                )
                 BreedRatingBar(value = breedItem.hairless)
-
             }
 
             Row(
@@ -279,9 +329,13 @@ fun ScreenContent(breedItem: BreedItem) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-                Text(text = "Natural", fontWeight = FontWeight.Bold, fontSize = 16.sp, modifier = Modifier.weight(1f))
+                Text(
+                    text = "Natural",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    modifier = Modifier.weight(1f)
+                )
                 BreedRatingBar(value = breedItem.natural)
-
             }
 
             Row(
@@ -291,9 +345,13 @@ fun ScreenContent(breedItem: BreedItem) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-                Text(text = "Rare", fontWeight = FontWeight.Bold, fontSize = 16.sp, modifier = Modifier.weight(1f))
+                Text(
+                    text = "Rare",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    modifier = Modifier.weight(1f)
+                )
                 BreedRatingBar(value = breedItem.rare)
-
             }
 
             Row(
@@ -303,9 +361,13 @@ fun ScreenContent(breedItem: BreedItem) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-                Text(text = "Rex", fontWeight = FontWeight.Bold, fontSize = 16.sp, modifier = Modifier.weight(1f))
+                Text(
+                    text = "Rex",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    modifier = Modifier.weight(1f)
+                )
                 BreedRatingBar(value = breedItem.rex)
-
             }
 
             Row(
@@ -315,9 +377,13 @@ fun ScreenContent(breedItem: BreedItem) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-                Text(text = "Suppressed tail", fontWeight = FontWeight.Bold, fontSize = 16.sp, modifier = Modifier.weight(1f))
+                Text(
+                    text = "Suppressed tail",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    modifier = Modifier.weight(1f)
+                )
                 BreedRatingBar(value = breedItem.suppressed_tail)
-
             }
 
             Row(
@@ -327,13 +393,13 @@ fun ScreenContent(breedItem: BreedItem) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Start
             ) {
-                Text(text = "Short legs", fontWeight = FontWeight.Bold, fontSize = 16.sp, modifier = Modifier.weight(1f))
+                Text(
+                    text = "Short legs", fontWeight = FontWeight.Bold, fontSize = 16.sp,
+                    modifier = Modifier.weight(1f)
+                )
                 BreedRatingBar(value = breedItem.short_legs)
-
             }
         }
-
-
     }
 }
 
@@ -367,5 +433,4 @@ fun BreedRatingBar(value: Int) {
             .background(color = Color.DarkGray)
             .padding(end = 20.dp)
     )
-
 }

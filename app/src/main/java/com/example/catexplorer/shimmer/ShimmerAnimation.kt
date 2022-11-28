@@ -7,8 +7,7 @@ import com.example.catexplorer.loading.shimmers.WallpaperShimmerItem
 import com.example.catexplorer.ui.theme.ShimmerColorShades
 
 @Composable
-fun ShimmerAnimation(
-) {
+fun ShimmerAnimation() {
 
     /*
     Create InfiniteTransition
@@ -26,7 +25,6 @@ fun ShimmerAnimation(
         initialValue = 0f,
         targetValue = 1000f,
         animationSpec = infiniteRepeatable(
-
 
             // Tween Animates between values over specified [durationMillis]
             tween(durationMillis = 1200, easing = FastOutSlowInEasing),

@@ -14,19 +14,17 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
 import coil.compose.AsyncImage
 import com.example.catexplorer.R
-import com.example.catexplorer.common.FavouriteUtil
 import com.example.catexplorer.common.FavouriteUtil.deleteFavourite
 import com.example.catexplorer.common.FavouriteUtil.postFavourite
 import com.example.catexplorer.common.downloadImage
 import com.example.catexplorer.common.shareImage
 import com.example.catexplorer.main.viewmodel.MainViewModel
-import com.example.catexplorer.screens.wallpapers.model.PostFavourite
 import com.example.catexplorer.multifab.FabIdentifier
 import com.example.catexplorer.multifab.MultiFabItem
 import com.example.catexplorer.multifab.MultiFabState
 import com.example.catexplorer.multifab.MultiFloatingActionButton
+import com.example.catexplorer.screens.wallpapers.model.PostFavourite
 import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersSharedViewModel
-
 
 @Composable
 fun WallpapersDetailScreen(
@@ -79,7 +77,6 @@ fun WallpapersDetailScreen(
     )
     val postFavouriteModel = imageId?.let { PostFavourite(it, userId) }
 
-
     Scaffold(
         floatingActionButton = {
             MultiFloatingActionButton(
@@ -96,7 +93,6 @@ fun WallpapersDetailScreen(
                                 wallpapersSharedViewModel
                             )
                         }
-
 
                         FabIdentifier.DELETE_FAVOURITE.name -> deleteFavourite(
                             favourite, tag,
@@ -118,7 +114,6 @@ fun WallpapersDetailScreen(
                                 context
                             )
                         }
-
                     }
                 }
             )
@@ -132,7 +127,6 @@ fun WallpapersDetailScreen(
 
         if (imageId != null) {
             wallpapersSharedViewModel.getFavourite(userId, imageId)
-
         }
 
         if (showDialog.value) {
@@ -145,10 +139,7 @@ fun WallpapersDetailScreen(
                 )
             }
         }
-
     }
-
-
 }
 
 @Composable
@@ -165,10 +156,6 @@ fun ScreenContent(imageUrl: String) {
     }
 }
 
-
 private fun onShowDialog(showDialog: MutableState<Boolean>) {
     showDialog.value = true
 }
-
-
-

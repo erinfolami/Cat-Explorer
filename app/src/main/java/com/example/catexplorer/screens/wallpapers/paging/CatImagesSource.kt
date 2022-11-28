@@ -8,7 +8,6 @@ import com.example.catexplorer.utils.ApiConstants.catImage_NETWORK_PAGE_SIZE
 import com.example.catexplorer.utils.ApiConstants.catImage_STARTING_PAGE_INDEX
 import javax.inject.Inject
 
-
 class CatImagesSource @Inject constructor(private val catsRepository: CatsRepository) :
     PagingSource<Int, CatImage>() {
 
@@ -18,7 +17,6 @@ class CatImagesSource @Inject constructor(private val catsRepository: CatsReposi
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
-
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CatImage> {
@@ -45,5 +43,4 @@ class CatImagesSource @Inject constructor(private val catsRepository: CatsReposi
             LoadResult.Error(e)
         }
     }
-
 }

@@ -3,13 +3,13 @@ package com.example.catexplorer
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.compose.rememberNavController
-import androidx.compose.runtime.getValue
 import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.example.catexplorer.navigation.DetailsNavScreen
 import com.example.catexplorer.navigation.NavigationGraph
 
@@ -39,8 +39,7 @@ fun MainScreenView() {
             navController = navController,
             bottomBarState
         )
-    })
-    {
+    }) {
         Box(modifier = Modifier.padding(it)) {
             NavigationGraph(navController = navController)
         }

@@ -28,7 +28,8 @@ fun BottomNavigationBar(navController: NavController, bottomBarState: MutableSta
         BottomNavScreen.Favourite
     )
 
-    AnimatedVisibility(visible = bottomBarState.value,
+    AnimatedVisibility(
+        visible = bottomBarState.value,
         enter = slideInVertically { it },
         exit = slideOutVertically { it },
         content = {
@@ -44,7 +45,8 @@ fun BottomNavigationBar(navController: NavController, bottomBarState: MutableSta
                             )
                         },
                         label = { Text(stringResource(screen.resourceID)) },
-                        selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true,
+                        selected = currentDestination?.hierarchy?.any
+                        { it.route == screen.route } == true,
                         onClick = {
                             navController.navigate(screen.route) {
                                 // Pop up to the start destination of the graph to
@@ -63,7 +65,6 @@ fun BottomNavigationBar(navController: NavController, bottomBarState: MutableSta
                     )
                 }
             }
-        })
-
+        }
+    )
 }
-

@@ -1,6 +1,5 @@
 package com.example.catexplorer.data.remote
 
-import android.util.Log
 import com.example.catexplorer.apiService.CatFactService
 import com.example.catexplorer.apiService.CatImagesService
 import com.example.catexplorer.screens.wallpapers.model.PostFavourite
@@ -33,7 +32,6 @@ class CatsRemoteDataSource @Inject constructor(
     suspend fun getAllFavourites(filter: HashMap<String, String>) =
         catImagesService.fetchFavourite(TheCatApi_BASE_URL + FAVOURITE_URL, filter, api_key)
 
-
     suspend fun deleteFavourite(favourite_id: Int) {
         catImagesService.deleteFavourite(
             "$TheCatApi_BASE_URL$FAVOURITE_URL/$favourite_id",
@@ -42,6 +40,4 @@ class CatsRemoteDataSource @Inject constructor(
     }
 
     suspend fun getBreeds() = catImagesService.getBreeds(TheCatApi_BASE_URL + BREED_URL)
-
-
 }

@@ -1,34 +1,29 @@
 package com.example.catexplorer.screens.favourite
 
-import android.content.Context
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import coil.compose.AsyncImage
-
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Add
+import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.imageResource
+import coil.compose.AsyncImage
 import com.example.catexplorer.R
 import com.example.catexplorer.common.FavouriteUtil.deleteFavourite
 import com.example.catexplorer.common.FavouriteUtil.postFavourite
+import com.example.catexplorer.common.downloadImage
 import com.example.catexplorer.common.shareImage
 import com.example.catexplorer.main.viewmodel.MainViewModel
-import com.example.catexplorer.screens.favourite.model.GetFavourite
-import com.example.catexplorer.screens.favourite.viewmodel.FavouriteSharedViewModel
-import com.example.catexplorer.screens.wallpapers.WallpaperCustomDialog
-import com.example.catexplorer.common.downloadImage
-import com.example.catexplorer.screens.wallpapers.model.PostFavourite
 import com.example.catexplorer.multifab.FabIdentifier
 import com.example.catexplorer.multifab.MultiFabItem
 import com.example.catexplorer.multifab.MultiFabState
 import com.example.catexplorer.multifab.MultiFloatingActionButton
+import com.example.catexplorer.screens.favourite.viewmodel.FavouriteSharedViewModel
+import com.example.catexplorer.screens.wallpapers.WallpaperCustomDialog
+import com.example.catexplorer.screens.wallpapers.model.PostFavourite
 
 @Composable
 fun FavouriteDetailScreen(
@@ -40,7 +35,6 @@ fun FavouriteDetailScreen(
 
     val coroutineScope = rememberCoroutineScope()
 
-
     val userId = mainViewModel.dataStoreData.value
 
     var toState by remember { mutableStateOf(MultiFabState.COLLAPSED) }
@@ -51,7 +45,6 @@ fun FavouriteDetailScreen(
     val favourite = favouriteSharedViewModel.response.value.data
 
     val postFavouriteModel = imageId?.let { PostFavourite(it, userId) }
-
 
     val items = listOf(
         MultiFabItem(
@@ -102,13 +95,11 @@ fun FavouriteDetailScreen(
                             )
                         }
 
-
                         FabIdentifier.DELETE_FAVOURITE.name -> deleteFavourite(
                             favourite,
                             tag,
                             favouriteSharedViewModel,
                         )
-
 
                         FabIdentifier.SET_AS_WALLPAPER.name -> onShowDialog(showDialog)
 
@@ -126,7 +117,6 @@ fun FavouriteDetailScreen(
                                 context
                             )
                         }
-
                     }
                 }
             )
@@ -140,7 +130,6 @@ fun FavouriteDetailScreen(
 
         if (imageId != null) {
             favouriteSharedViewModel.getFavourite(userId, imageId)
-
         }
 
         if (showDialog.value) {
@@ -153,10 +142,7 @@ fun FavouriteDetailScreen(
                 )
             }
         }
-
     }
-
-
 }
 
 @Composable
@@ -173,11 +159,6 @@ fun ScreenContent(imageUrl: String) {
     }
 }
 
-
 private fun onShowDialog(showDialog: MutableState<Boolean>) {
     showDialog.value = true
 }
-
-
-
-

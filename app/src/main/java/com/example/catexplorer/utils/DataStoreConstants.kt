@@ -1,7 +1,6 @@
 package com.example.catexplorer.utils
 
-object DataStoreConstants{
+object DataStoreConstants {
 
     const val userKey = "userID"
-
 }

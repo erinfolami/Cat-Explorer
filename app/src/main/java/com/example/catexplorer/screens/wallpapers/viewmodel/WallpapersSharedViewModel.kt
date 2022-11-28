@@ -17,8 +17,8 @@ import com.example.catexplorer.screens.wallpapers.model.PostFavourite
 import com.example.catexplorer.screens.wallpapers.paging.CatImagesSource
 import com.example.catexplorer.utils.ApiConstants.catImage_NETWORK_PAGE_SIZE
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class WallpapersSharedViewModel @Inject constructor(private val repository: CatsRepository) :
@@ -28,34 +28,29 @@ class WallpapersSharedViewModel @Inject constructor(private val repository: Cats
         CatImagesSource(repository)
     }.flow.cachedIn(viewModelScope)
 
-    var wallpaperImageItem  by mutableStateOf<CatImage?>(null)
+    var wallpaperImageItem by mutableStateOf<CatImage?>(null)
 
     val response: MutableState<NetworkResult<GetFavourite>> =
         mutableStateOf(NetworkResult.Loading())
 
-
-    fun addImageItem(image: CatImage){
+    fun addImageItem(image: CatImage) {
         wallpaperImageItem = image
     }
 
-
-
-    fun postFavourite(postBody: PostFavourite){
+    fun postFavourite(postBody: PostFavourite) {
         viewModelScope.launch {
             repository.postFavourite(postBody)
         }
     }
 
-   fun deleteFavourite(favourite_id: Int){
-       viewModelScope.launch {
-           repository.deleteFavourite(favourite_id)
-       }
+    fun deleteFavourite(favourite_id: Int) {
+        viewModelScope.launch {
+            repository.deleteFavourite(favourite_id)
+        }
     }
 
-
-
     fun getFavourite(userId: String, imageId: String) = viewModelScope.launch {
-        val filter = HashMap<String,String>()
+        val filter = HashMap<String, String>()
         filter["sub_id"] = userId
         filter["image_id"] = imageId
 

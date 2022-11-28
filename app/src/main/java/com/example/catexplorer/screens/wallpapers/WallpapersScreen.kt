@@ -1,8 +1,6 @@
 package com.example.catexplorer.screens
 
-
 import ShimmerAnimation
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -27,17 +25,21 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshState
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 
-import java.net.URLEncoder
-import java.nio.charset.StandardCharsets
-
-
 @Composable
-fun WallpapersScreen(wallpapersSharedViewModel: WallpapersSharedViewModel, navController: NavController) {
+fun WallpapersScreen(
+    wallpapersSharedViewModel: WallpapersSharedViewModel,
+    navController: NavController
+) {
     val images = wallpapersSharedViewModel.items.collectAsLazyPagingItems()
     val state =
         rememberSwipeRefreshState(isRefreshing = images.loadState.refresh is LoadState.Loading)
 
-    WallpapersScreenContent(state = state, images = images, navController = navController,wallpapersSharedViewModel)
+    WallpapersScreenContent(
+        state = state,
+        images = images,
+        navController = navController,
+        wallpapersSharedViewModel
+    )
 }
 
 @Composable
@@ -49,8 +51,12 @@ fun WallpapersScreenContent(
 ) {
     SwipeRefresh(state = state, onRefresh = { images.refresh() }) {
 
-        WallpapersList(modifier = Modifier, images = images, navController = navController,wallpapersSharedViewModel)
-
+        WallpapersList(
+            modifier = Modifier,
+            images = images,
+            navController = navController,
+            wallpapersSharedViewModel
+        )
     }
 }
 
@@ -68,15 +74,24 @@ fun WallpapersList(
     ) {
         items(images) { image ->
             image?.let {
-                ImageCard(modifier = Modifier, image = it, navController = navController,viewModel = viewModel)
+                ImageCard(
+                    modifier = Modifier,
+                    image = it,
+                    navController = navController,
+                    viewModel = viewModel
+                )
             }
         }
     }
 }
 
-
 @Composable
-private fun ImageCard(modifier: Modifier, image: CatImage,viewModel: WallpapersSharedViewModel, navController: NavController) {
+private fun ImageCard(
+    modifier: Modifier,
+    image: CatImage,
+    viewModel: WallpapersSharedViewModel,
+    navController: NavController
+) {
 
     Card(
         modifier = modifier
@@ -90,7 +105,8 @@ private fun ImageCard(modifier: Modifier, image: CatImage,viewModel: WallpapersS
                 .fillMaxWidth()
                 .clickable {
                     viewModel.addImageItem(image)
-                    navController.navigate(route = DetailsNavScreen.WallpapersDetail.route) },
+                    navController.navigate(route = DetailsNavScreen.WallpapersDetail.route)
+                },
             model = image.url,
             contentDescription = null,
             contentScale = ContentScale.FillHeight,
@@ -99,11 +115,9 @@ private fun ImageCard(modifier: Modifier, image: CatImage,viewModel: WallpapersS
             }
         )
     }
-
 }
 
-
-//writing this  extension function
+// writing this  extension function
 // so that LazyVerticalGrid can accept lazyPagingItems
 @ExperimentalFoundationApi
 public fun <T : Any> LazyGridScope.items(
@@ -114,4 +128,3 @@ public fun <T : Any> LazyGridScope.items(
         itemContent(lazyPagingItems[index])
     }
 }
-

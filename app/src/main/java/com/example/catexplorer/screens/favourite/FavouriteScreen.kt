@@ -18,10 +18,9 @@ import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
 import com.example.catexplorer.main.viewmodel.MainViewModel
 import com.example.catexplorer.navigation.DetailsNavScreen
-import com.example.catexplorer.screens.favourite.viewmodel.FavouriteSharedViewModel
 import com.example.catexplorer.screens.favourite.model.GetFavourite
 import com.example.catexplorer.screens.favourite.model.GetFavouriteItem
-
+import com.example.catexplorer.screens.favourite.viewmodel.FavouriteSharedViewModel
 
 @Composable
 fun FavouriteScreen(
@@ -34,14 +33,11 @@ fun FavouriteScreen(
 
     val userId = mainViewModel.dataStoreData.value
 
-
     favouriteSharedViewModel.getAllFavourite(userId)
 
     if (favourites != null && favourites.isEmpty()) {
-            EmptyFavourite(Modifier, navController)
+        EmptyFavourite(Modifier, navController)
     }
-
-
 
     if (favourites != null) {
         FavouriteList(
@@ -51,7 +47,6 @@ fun FavouriteScreen(
             viewModel = favouriteSharedViewModel
         )
     }
-
 }
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -104,5 +99,4 @@ private fun ImageCard(
             contentScale = ContentScale.FillHeight
         )
     }
-
 }
