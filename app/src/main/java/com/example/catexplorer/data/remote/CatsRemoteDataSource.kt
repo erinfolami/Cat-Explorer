@@ -7,7 +7,8 @@ import com.example.catexplorer.utils.ApiConstants.BREED_URL
 import com.example.catexplorer.utils.ApiConstants.CatFact_BASE_URL
 import com.example.catexplorer.utils.ApiConstants.FACT_URL
 import com.example.catexplorer.utils.ApiConstants.FAVOURITE_URL
-import com.example.catexplorer.utils.ApiConstants.IMAGE_URL
+import com.example.catexplorer.utils.ApiConstants.IMAGE_BY_ID_URL
+import com.example.catexplorer.utils.ApiConstants.SEARCH_IMAGE_URL
 import com.example.catexplorer.utils.ApiConstants.TheCatApi_BASE_URL
 import com.example.catexplorer.utils.ApiConstants.api_key
 import javax.inject.Inject
@@ -20,7 +21,7 @@ class CatsRemoteDataSource @Inject constructor(
     suspend fun getCat() = catFactService.getCatFact(CatFact_BASE_URL + FACT_URL)
 
     suspend fun getCatImages(filter: HashMap<String, Int>) =
-        catImagesService.getCatImages(TheCatApi_BASE_URL + IMAGE_URL, filter, api_key)
+        catImagesService.getCatImages(TheCatApi_BASE_URL + SEARCH_IMAGE_URL, filter, api_key)
 
     suspend fun postFavourite(postBody: PostFavourite) {
         catImagesService.postFavourite(TheCatApi_BASE_URL + FAVOURITE_URL, postBody, api_key)
@@ -39,5 +40,10 @@ class CatsRemoteDataSource @Inject constructor(
         )
     }
 
-    suspend fun getBreeds() = catImagesService.getBreeds(TheCatApi_BASE_URL + BREED_URL)
+    suspend fun getBreeds() = catImagesService.getBreeds(TheCatApi_BASE_URL + BREED_URL, api_key)
+
+    suspend fun getCatImageByID(referenceImageId: String) = catImagesService.getCatImageByID(
+        "$TheCatApi_BASE_URL$IMAGE_BY_ID_URL/$referenceImageId",
+        api_key
+    )
 }

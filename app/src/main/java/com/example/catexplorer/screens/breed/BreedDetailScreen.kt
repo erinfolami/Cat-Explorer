@@ -20,25 +20,29 @@ import androidx.compose.ui.unit.sp
 import coil.compose.SubcomposeAsyncImage
 import com.example.catexplorer.screens.breed.model.BreedItem
 import com.example.catexplorer.screens.breed.viewmodel.BreedSharedViewModel
+import com.example.catexplorer.screens.wallpapers.model.CatImage
 import com.gowtham.ratingbar.RatingBar
 
 @Composable
 fun BreedDetailScreen(breedSharedViewModel: BreedSharedViewModel) {
+
     val breedItem = breedSharedViewModel.breedItem
 
-    if (breedItem != null) {
-        ScreenContent(breedItem)
+    val catImageByID = breedSharedViewModel.imageByID.value.data
+
+    if (breedItem != null && catImageByID != null) {
+        ScreenContent(breedItem, catImageByID)
     }
 }
 
 @Composable
-fun ScreenContent(breedItem: BreedItem) {
+fun ScreenContent(breedItem: BreedItem, catImage: CatImage) {
 
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
 
-        ImageSection(breedItem)
+        ImageSection(breedItem, catImage)
 
         Text(
             text = breedItem.name,
@@ -404,7 +408,7 @@ fun ScreenContent(breedItem: BreedItem) {
 }
 
 @Composable
-fun ImageSection(breedItem: BreedItem) {
+fun ImageSection(breedItem: BreedItem, catImage: CatImage) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -414,7 +418,7 @@ fun ImageSection(breedItem: BreedItem) {
     ) {
         SubcomposeAsyncImage(
             modifier = Modifier.fillMaxWidth(),
-            model = breedItem.image.url,
+            model = catImage.url,
             contentDescription = null,
             contentScale = ContentScale.FillBounds
         )

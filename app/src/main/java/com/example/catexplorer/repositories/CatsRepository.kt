@@ -64,4 +64,10 @@ class CatsRepository @Inject constructor(
             emit(safeApiCall { catsRemoteDataSource.getBreeds() })
         }.flowOn(Dispatchers.IO)
     }
+
+    suspend fun getCatImageByID(referenceImageId: String): Flow<NetworkResult<CatImage>> {
+        return flow {
+            emit(safeApiCall { catsRemoteDataSource.getCatImageByID(referenceImageId) })
+        }.flowOn(Dispatchers.IO)
+    }
 }

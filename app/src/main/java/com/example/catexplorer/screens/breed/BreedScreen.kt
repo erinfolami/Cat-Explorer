@@ -20,14 +20,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import coil.compose.SubcomposeAsyncImage
 import com.example.catexplorer.navigation.DetailsNavScreen
 import com.example.catexplorer.screens.breed.model.BreedItem
 import com.example.catexplorer.screens.breed.model.GetBreeds
@@ -121,11 +119,11 @@ fun BreedListItem(breed: BreedItem, viewModel: BreedSharedViewModel, navControll
                 .height(80.dp)
                 .clip(RoundedCornerShape(12.dp))
         ) {
-            SubcomposeAsyncImage(
-                model = breed.image.url,
-                contentDescription = null,
-                contentScale = ContentScale.FillBounds
-            )
+//            SubcomposeAsyncImage(
+//                model = breed.image.url,
+//                contentDescription = null,
+//                contentScale = ContentScale.FillBounds
+//            )
         }
 
         Text(
@@ -168,9 +166,9 @@ fun BreedList(
 
         items(filteredBreeds) { filteredBreed ->
             // checking it image field is present before accessing
-            if (filteredBreed.image != null) {
-                BreedListItem(breed = filteredBreed, viewModel, navController)
-            }
+//            if (filteredBreed.image != null) {
+            BreedListItem(breed = filteredBreed, viewModel, navController)
+//            }
         }
     }
 }

@@ -36,5 +36,14 @@ interface CatImagesService {
     )
 
     @GET
-    suspend fun getBreeds(@Url url: String): Response<GetBreeds>
+    suspend fun getBreeds(
+        @Url url: String,
+        @Query("api_key") api_key: String
+    ): Response<GetBreeds>
+
+    @GET
+    suspend fun getCatImageByID(
+        @Url url: String,
+        @Query("api_key") api_key: String
+    ): Response<CatImage>
 }

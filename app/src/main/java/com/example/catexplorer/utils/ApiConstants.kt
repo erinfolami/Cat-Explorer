@@ -8,7 +8,8 @@ object ApiConstants {
     const val FACT_URL = "/fact"
 
     const val TheCatApi_BASE_URL = "https://api.thecatapi.com"
-    const val IMAGE_URL = "/v1/images/search"
+    const val SEARCH_IMAGE_URL = "/v1/images/search"
+    const val IMAGE_BY_ID_URL = "/v1/images"
     const val FAVOURITE_URL = "/v1/favourites"
     const val BREED_URL = "/v1/breeds"
 
