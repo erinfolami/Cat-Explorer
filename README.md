@@ -26,6 +26,14 @@ Welcome to Cat Explorer! This is a fun and interactive app designed to provide u
 
 
 ### Screenshots
+![WhatsApp Image 2024-02-12 at 10 12 59 AM (3)](https://github.com/erinfolami/Cat-Explorer/assets/50245033/35250663-7ccf-4ace-b1b5-ee3eb3a76ce2)
+
+![WhatsApp Image 2024-02-12 at 10 12 59 AM (2)](https://github.com/erinfolami/Cat-Explorer/assets/50245033/12ef1cd8-4dcb-4c2f-b7ed-be984c4f59b0)
+
+![WhatsApp Image 2024-02-12 at 10 12 59 AM (1)](https://github.com/erinfolami/Cat-Explorer/assets/50245033/a069237a-e86d-4506-aacf-dd370f0882ec)
+
+
+![WhatsApp Image 2024-02-12 at 10 12 59 AM](https://github.com/erinfolami/Cat-Explorer/assets/50245033/05cdd656-8c2a-4a5e-9c9c-3a53576751e0)
 
 
 ### Feedback
