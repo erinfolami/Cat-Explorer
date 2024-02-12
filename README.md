@@ -31,7 +31,8 @@ Welcome to Cat Explorer! This is a fun and interactive app designed to provide u
 
 <img src="https://github.com/erinfolami/Cat-Explorer/assets/50245033/12ef1cd8-4dcb-4c2f-b7ed-be984c4f59b0" width="150"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 
-<img src="https://github.com/erinfolami/Cat-Explorer/assets/50245033/12ef1cd8-4dcb-4c2f-b7ed-be984c4f59b0](https://github.com/erinfolami/Cat-Explorer/assets/50245033/a069237a-e86d-4506-aacf-dd370f0882ec)" width="150"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+
+<img src="https://github.com/erinfolami/Cat-Explorer/assets/50245033/297abb34-6702-4bdc-92f2-1972b3ab130b" width="150"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 
 
 <img src="https://github.com/erinfolami/Cat-Explorer/assets/50245033/05cdd656-8c2a-4a5e-9c9c-3a53576751e0" width="150"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
