@@ -40,7 +40,7 @@ Welcome to Cat Explorer! This is a fun and interactive app designed to provide u
 
 
 ### Feedback
-We'd love to hear your thoughts on the app! If you have any suggestions for improvement or encounter any issues, please don't hesitate to reach out to us.
+I'd love to hear your thoughts on the app! If you have any suggestions for improvement or encounter any issues, please don't hesitate to reach out.
 
 Enjoy using Cat Explorer! 🐱
 
