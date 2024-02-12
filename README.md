@@ -3,9 +3,9 @@
 Welcome to Cat Explorer! This is a fun and interactive app designed to provide users with interesting cat facts and beautiful cat wallpapers
 
 ### Features
-* #Cat Facts: Get access to a variety of fascinating facts about cats. Learn about their behavior, habits, and more. <br /> 
+*  **Cat Facts:** Get access to a variety of fascinating facts about cats. Learn about their behavior, habits, and more. <br /> 
  
-* #### Cat Wallpapers: Explore a collection of stunning cat wallpapers to decorate your device's screen. <br />
+* **Cat Wallpapers:** Explore a collection of stunning cat wallpapers to decorate your device's screen. <br />
  
 * #Save Favorites: Save your favorite wallpapers to easily access them later. You can also delete wallpapers you no longer want to keep. <br /> 
  
@@ -22,7 +22,10 @@ Welcome to Cat Explorer! This is a fun and interactive app designed to provide u
 ### Screenshots
 
 
+### Feedback
+We'd love to hear your thoughts on the app! If you have any suggestions for improvement or encounter any issues, please don't hesitate to reach out to us.
 
+Enjoy using Cat Facts and Wallpapers! 🐱
 
 
  
