@@ -16,7 +16,7 @@ android {
     defaultConfig {
         applicationId "com.example.catexplorer"
         minSdk 29
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
         
@@ -82,6 +82,7 @@ dependencies {
     implementation "com.google.android.material:material:$compose_material"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-runtime-compose:2.6.2'
     implementation 'androidx.activity:activity-compose:1.3.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
@@ -135,6 +136,10 @@ dependencies {
 
     //Compose-ratingbar dependencies
     implementation 'io.github.a914-gowtham:compose-ratingbar:1.0.6'
+
+    //Coroutines dependencies
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
 
 }
 

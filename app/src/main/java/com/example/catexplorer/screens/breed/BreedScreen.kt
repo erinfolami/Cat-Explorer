@@ -13,38 +13,44 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.compose.SubcomposeAsyncImage
 import com.example.catexplorer.navigation.DetailsNavScreen
 import com.example.catexplorer.screens.breed.model.BreedItem
-import com.example.catexplorer.screens.breed.model.GetBreeds
 import com.example.catexplorer.screens.breed.viewmodel.BreedSharedViewModel
+import com.example.catexplorer.screens.wallpapers.model.CatImage
 import java.util.*
 import kotlin.collections.ArrayList
 
 @Composable
 fun BreedScreen(breedViewModel: BreedSharedViewModel, navController: NavController) {
+    val uiState = breedViewModel.uiState
     val textState = remember { mutableStateOf(TextFieldValue("")) }
-
-    val breeds = breedViewModel.breeds.value.data
 
     Column {
         SearchView(state = textState)
 
-        if (breeds != null) {
-            BreedList(breeds = breeds, state = textState, breedViewModel, navController)
-        }
+        BreedList(
+            uiState.breedList,
+            textState,
+            breedViewModel,
+            navController,
+        )
     }
 }
 
@@ -99,7 +105,13 @@ fun SearchView(state: MutableState<TextFieldValue>) {
 }
 
 @Composable
-fun BreedListItem(breed: BreedItem, viewModel: BreedSharedViewModel, navController: NavController) {
+fun BreedListItem(
+    breed: BreedItem,
+    catImage: CatImage,
+    viewModel: BreedSharedViewModel,
+    navController: NavController
+) {
+
     Row(
         modifier = Modifier
             .fillMaxSize()
@@ -119,11 +131,11 @@ fun BreedListItem(breed: BreedItem, viewModel: BreedSharedViewModel, navControll
                 .height(80.dp)
                 .clip(RoundedCornerShape(12.dp))
         ) {
-//            SubcomposeAsyncImage(
-//                model = breed.image.url,
-//                contentDescription = null,
-//                contentScale = ContentScale.FillBounds
-//            )
+            SubcomposeAsyncImage(
+                model = catImage.url,
+                contentDescription = null,
+                contentScale = ContentScale.FillBounds
+            )
         }
 
         Text(
@@ -138,7 +150,7 @@ fun BreedListItem(breed: BreedItem, viewModel: BreedSharedViewModel, navControll
 
 @Composable
 fun BreedList(
-    breeds: GetBreeds,
+    breedList: List<BreedSharedViewModel.BreedDetails>,
     state: MutableState<TextFieldValue>,
     viewModel: BreedSharedViewModel,
     navController: NavController
@@ -148,27 +160,25 @@ fun BreedList(
     LazyColumn(modifier = Modifier) {
         val searchedText = state.value.text
 
-        filteredBreeds =
-            if (searchedText.isEmpty()) {
-                breeds
-            } else {
-                val resultList = ArrayList<BreedItem>()
-
-                for (breed in breeds) {
-                    if (breed.name.lowercase(Locale.getDefault())
-                        .contains(searchedText.lowercase(Locale.getDefault()))
-                    ) {
-                        resultList.add(breed)
-                    }
-                }
-                resultList
-            }
-
-        items(filteredBreeds) { filteredBreed ->
-            // checking it image field is present before accessing
-//            if (filteredBreed.image != null) {
-            BreedListItem(breed = filteredBreed, viewModel, navController)
+//        filteredBreeds =
+//            if (searchedText.isEmpty()) {
+//                breeds
+//            } else {
+//                val resultList = ArrayList<BreedItem>()
+//
+//                for (breed in breeds) {
+//                    if (breed.name.lowercase(Locale.getDefault())
+//                        .contains(searchedText.lowercase(Locale.getDefault()))
+//                    ) {
+//                        resultList.add(breed)
+//                    }
+//                }
+//                resultList
 //            }
+
+        items(breedList.size) { filteredBreed ->
+            val breed = breedList[filteredBreed]
+            BreedListItem(breed = breed.breed, breed.catImage, viewModel, navController)
         }
     }
 }

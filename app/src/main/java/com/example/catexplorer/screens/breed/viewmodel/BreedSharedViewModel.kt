@@ -1,6 +1,5 @@
 package com.example.catexplorer.screens.breed.viewmodel
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -10,10 +9,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.catexplorer.base.NetworkResult
 import com.example.catexplorer.repositories.CatsRepository
 import com.example.catexplorer.screens.breed.model.BreedItem
-import com.example.catexplorer.screens.breed.model.GetBreeds
 import com.example.catexplorer.screens.wallpapers.model.CatImage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 @HiltViewModel
@@ -22,13 +23,13 @@ class BreedSharedViewModel @Inject constructor(private val repository: CatsRepos
 
     var breedItem by mutableStateOf<BreedItem?>(null)
 
-    val breeds: MutableState<NetworkResult<GetBreeds>> =
+    val breedDetailImageById: MutableState<NetworkResult<CatImage>> =
         mutableStateOf(NetworkResult.Loading())
 
-    val imageByID: MutableState<NetworkResult<CatImage>> =
-        mutableStateOf(NetworkResult.Loading())
+    var uiState by mutableStateOf(BreedSharedUiState())
+        private set
+
     init {
-
         getBreeds()
     }
 
@@ -37,22 +38,41 @@ class BreedSharedViewModel @Inject constructor(private val repository: CatsRepos
 
         // Once breedItem has a value, get the cat image
         breedItem?.let {
-            it.reference_image_id?.let { it1 -> getCatImageByID(it1) }
+            getBreedDetailImageById(it.reference_image_id)
         }
     }
 
-    private fun getBreeds() = viewModelScope.launch {
+    private fun getBreeds() {
 
-        repository.getBreeds().collect { values ->
-            breeds.value = values
+        viewModelScope.launch(Dispatchers.IO) {
+            val list = mutableListOf<BreedDetails>()
+//            uiState = uiState.copy(isLoading = true)
+
+            repository.getBreeds().collectLatest {
+                val data = it.data
+                data?.forEach { breed ->
+                    val image = repository.getCatImageByID(breed.reference_image_id)
+                    image.first().data?.let { breedImage ->
+                        BreedDetails(breed = breed, catImage = breedImage)
+                    }
+                        ?.let { it -> list.add(it) }
+                }
+            }
+            uiState = uiState.copy(breedList = list, isLoading = false)
         }
     }
 
-    fun getCatImageByID(referenceImageId: String) = viewModelScope.launch {
+    private fun getBreedDetailImageById(referenceImageId: String) = viewModelScope.launch {
 
         repository.getCatImageByID(referenceImageId).collect { values ->
-            imageByID.value = values
-            Log.i("dem", values.data?.url + "k")
+            breedDetailImageById.value = values
         }
     }
+
+    data class BreedSharedUiState(
+        val breedList: List<BreedDetails> = emptyList(),
+        val isLoading: Boolean = false
+    )
+
+    data class BreedDetails(val breed: BreedItem, val catImage: CatImage)
 }

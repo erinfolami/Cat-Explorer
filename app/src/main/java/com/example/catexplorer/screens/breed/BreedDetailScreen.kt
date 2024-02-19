@@ -1,6 +1,5 @@
 package com.example.catexplorer.screens.breed
 
-import android.widget.RatingBar
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -28,10 +27,10 @@ fun BreedDetailScreen(breedSharedViewModel: BreedSharedViewModel) {
 
     val breedItem = breedSharedViewModel.breedItem
 
-    val catImageByID = breedSharedViewModel.imageByID.value.data
+    val catImageByIdBreedDetail = breedSharedViewModel.breedDetailImageById.value.data
 
-    if (breedItem != null && catImageByID != null) {
-        ScreenContent(breedItem, catImageByID)
+    if (breedItem != null && catImageByIdBreedDetail != null) {
+        ScreenContent(breedItem, catImageByIdBreedDetail)
     }
 }
 
