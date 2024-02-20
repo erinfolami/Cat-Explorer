@@ -13,6 +13,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,18 +36,18 @@ import com.example.catexplorer.screens.breed.model.BreedItem
 import com.example.catexplorer.screens.breed.viewmodel.BreedSharedViewModel
 import com.example.catexplorer.screens.wallpapers.model.CatImage
 import java.util.*
-import kotlin.collections.ArrayList
 
 @Composable
 fun BreedScreen(breedViewModel: BreedSharedViewModel, navController: NavController) {
-    val uiState = breedViewModel.uiState
+//    val uiState = breedViewModel.uiState
+    val uiState = breedViewModel.state.collectAsState()
     val textState = remember { mutableStateOf(TextFieldValue("")) }
 
     Column {
         SearchView(state = textState)
 
         BreedList(
-            uiState.breedList,
+            uiState.value.breedList,
             textState,
             breedViewModel,
             navController,
@@ -148,6 +149,7 @@ fun BreedListItem(
     Spacer(modifier = Modifier.height(10.dp))
 }
 
+
 @Composable
 fun BreedList(
     breedList: List<BreedSharedViewModel.BreedDetails>,
@@ -155,30 +157,32 @@ fun BreedList(
     viewModel: BreedSharedViewModel,
     navController: NavController
 ) {
-    var filteredBreeds: ArrayList<BreedItem>
+    var filteredBreeds: List<BreedSharedViewModel.BreedDetails>
 
     LazyColumn(modifier = Modifier) {
         val searchedText = state.value.text
 
-//        filteredBreeds =
-//            if (searchedText.isEmpty()) {
-//                breeds
-//            } else {
-//                val resultList = ArrayList<BreedItem>()
-//
-//                for (breed in breeds) {
-//                    if (breed.name.lowercase(Locale.getDefault())
-//                        .contains(searchedText.lowercase(Locale.getDefault()))
-//                    ) {
-//                        resultList.add(breed)
-//                    }
-//                }
-//                resultList
-//            }
+        filteredBreeds =
+            if (searchedText.isEmpty()) {
+                breedList
+            } else {
+                val resultList = mutableListOf<BreedSharedViewModel.BreedDetails>()
 
-        items(breedList.size) { filteredBreed ->
-            val breed = breedList[filteredBreed]
-            BreedListItem(breed = breed.breed, breed.catImage, viewModel, navController)
+                for (breed in breedList) {
+                    if (breed.breed.name.lowercase(Locale.getDefault())
+                        .contains(searchedText.lowercase(Locale.getDefault()))
+                    ) {
+                        resultList.add(breed)
+                    }
+                }
+                resultList
+            }
+
+        items(filteredBreeds) { filteredBreed ->
+            BreedListItem(
+                breed = filteredBreed.breed, filteredBreed.catImage,
+                viewModel, navController
+            )
         }
     }
 }
