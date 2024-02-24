@@ -3,11 +3,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
-import com.example.catexplorer.loading.shimmers.WallpaperShimmerItem
 import com.example.catexplorer.ui.theme.ShimmerColorShades
 
 @Composable
-fun ShimmerAnimation() {
+fun ShimmerAnimation(shimmerItem: @Composable (Brush) -> Unit) {
 
     /*
     Create InfiniteTransition
@@ -44,5 +43,5 @@ fun ShimmerAnimation() {
         end = Offset(translateAnim, translateAnim)
     )
 
-    WallpaperShimmerItem(brush = brush)
+    shimmerItem(brush)
 }

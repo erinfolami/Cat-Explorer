@@ -21,6 +21,7 @@ import coil.compose.SubcomposeAsyncImage
 import com.example.catexplorer.navigation.DetailsNavScreen
 import com.example.catexplorer.screens.wallpapers.model.CatImage
 import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersSharedViewModel
+import com.example.catexplorer.shimmer.WallpaperShimmerItem
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshState
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -111,7 +112,9 @@ private fun ImageCard(
             contentDescription = null,
             contentScale = ContentScale.FillHeight,
             loading = {
-                ShimmerAnimation()
+                ShimmerAnimation { brush ->
+                    WallpaperShimmerItem(brush = brush)
+                }
             }
         )
     }

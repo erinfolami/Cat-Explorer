@@ -1,4 +1,4 @@
-package com.example.catexplorer.loading.shimmers
+package com.example.catexplorer.shimmer
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

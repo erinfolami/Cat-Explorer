@@ -1,5 +1,6 @@
 package com.example.catexplorer.screens.breed
 
+import ShimmerAnimation
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -13,11 +14,8 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,23 +33,32 @@ import com.example.catexplorer.navigation.DetailsNavScreen
 import com.example.catexplorer.screens.breed.model.BreedItem
 import com.example.catexplorer.screens.breed.viewmodel.BreedSharedViewModel
 import com.example.catexplorer.screens.wallpapers.model.CatImage
+import com.example.catexplorer.shimmer.BreedShimmerItem
 import java.util.*
 
 @Composable
 fun BreedScreen(breedViewModel: BreedSharedViewModel, navController: NavController) {
-//    val uiState = breedViewModel.uiState
-    val uiState = breedViewModel.state.collectAsState()
+    val uiState = breedViewModel.uiState
     val textState = remember { mutableStateOf(TextFieldValue("")) }
+    val isLoading = false
 
     Column {
         SearchView(state = textState)
 
         BreedList(
-            uiState.value.breedList,
+            uiState.breedList,
             textState,
             breedViewModel,
             navController,
+            isLoading,
         )
+//        BreedList(
+//            uiState.value.breedList,
+//            textState,
+//            breedViewModel,
+//            navController,
+//            isLoading,
+//        )
     }
 }
 
@@ -110,52 +117,65 @@ fun BreedListItem(
     breed: BreedItem,
     catImage: CatImage,
     viewModel: BreedSharedViewModel,
-    navController: NavController
+    navController: NavController,
+    isLoading: Boolean
 ) {
 
-    Row(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(6.dp)
-            .clip(RoundedCornerShape(18.dp))
-            .background(Color.Gray)
-            .clickable {
-                viewModel.addBreedItem(breed)
-                navController.navigate(DetailsNavScreen.BreedsDetail.route)
-            },
-        verticalAlignment = Alignment.CenterVertically
-    ) {
+    if (isLoading) {
+        ShimmerAnimation { brush ->
+            BreedShimmerItem(brush = brush)
+        }
+    } else {
 
         Row(
             modifier = Modifier
-                .width(120.dp)
-                .height(80.dp)
-                .clip(RoundedCornerShape(12.dp))
+                .fillMaxSize()
+                .padding(6.dp)
+                .clip(RoundedCornerShape(18.dp))
+                .background(Color.Gray)
+                .clickable {
+                    viewModel.addBreedItem(breed)
+                    navController.navigate(DetailsNavScreen.BreedsDetail.route)
+                },
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            SubcomposeAsyncImage(
-                model = catImage.url,
-                contentDescription = null,
-                contentScale = ContentScale.FillBounds
+
+            Row(
+                modifier = Modifier
+                    .width(120.dp)
+                    .height(80.dp)
+                    .clip(RoundedCornerShape(12.dp))
+            ) {
+                SubcomposeAsyncImage(
+                    model = catImage.url,
+                    contentDescription = null,
+                    contentScale = ContentScale.FillBounds,
+                    loading = {
+                        ShimmerAnimation { brush ->
+                            BreedShimmerItem(brush = brush)
+                        }
+                    }
+                )
+            }
+
+            Text(
+                text = breed.name,
+                modifier = Modifier.padding(start = 15.dp),
+                fontWeight = FontWeight.ExtraBold,
+                fontSize = 17.sp
             )
         }
-
-        Text(
-            text = breed.name,
-            modifier = Modifier.padding(start = 15.dp),
-            fontWeight = FontWeight.ExtraBold,
-            fontSize = 17.sp
-        )
     }
     Spacer(modifier = Modifier.height(10.dp))
 }
-
 
 @Composable
 fun BreedList(
     breedList: List<BreedSharedViewModel.BreedDetails>,
     state: MutableState<TextFieldValue>,
     viewModel: BreedSharedViewModel,
-    navController: NavController
+    navController: NavController,
+    isLoading: Boolean
 ) {
     var filteredBreeds: List<BreedSharedViewModel.BreedDetails>
 
@@ -181,7 +201,7 @@ fun BreedList(
         items(filteredBreeds) { filteredBreed ->
             BreedListItem(
                 breed = filteredBreed.breed, filteredBreed.catImage,
-                viewModel, navController
+                viewModel, navController, isLoading
             )
         }
     }
