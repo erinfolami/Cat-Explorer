@@ -38,6 +38,10 @@ Welcome to Cat Explorer! This is a fun and interactive app designed to provide u
 ### Feedback
 I'd love to hear your thoughts on the app! If you have any suggestions for improvement or encounter any issues, please don't hesitate to reach out.
 
+### Contact Me!
+* LinkedIn: https://linkedin.com/in/erin-emma-a6a47a191/
+* Email: emmanuelerinfolami3@gmail.com
+
 Enjoy using Cat Explorer! 🐱
 
 
