@@ -13,8 +13,12 @@ import com.example.catexplorer.screens.wallpapers.model.CatImage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -29,12 +33,9 @@ class BreedSharedViewModel @Inject constructor(private val repository: CatsRepos
 
     var uiState by mutableStateOf(BreedSharedUiState())
         private set
-//
-//    private val _state = MutableStateFlow(BreedSharedUiState())
-//    var state = _state.stateIn(viewModelScope, SharingStarted.Eagerly, _state.value)
 
     init {
-        getBreeds()
+//        getBreeds()
     }
 
     fun addBreedItem(breedImage: BreedItem) {
@@ -46,14 +47,12 @@ class BreedSharedViewModel @Inject constructor(private val repository: CatsRepos
         }
     }
 
-    private fun getBreeds() {
+    fun getBreeds() {
+//    private fun getBreeds() {
 
         viewModelScope.launch(Dispatchers.IO) {
             val list = mutableListOf<BreedDetails>()
-//            withContext(Dispatchers.Main) {
-//                _state.update { _state.value.copy(breedList = list, isLoading = true) }
-//            }
-//            uiState = uiState.copy(isLoading = true)
+
             withContext(Dispatchers.Main) {
                 uiState = uiState.copy(isLoading = true)
             }
@@ -71,10 +70,7 @@ class BreedSharedViewModel @Inject constructor(private val repository: CatsRepos
             withContext(Dispatchers.Main) {
                 uiState = uiState.copy(breedList = list, isLoading = false)
             }
-// //            uiState = uiState.copy(breedList = list, isLoading = false)
-//            withContext(Dispatchers.Main) {
-//                _state.update { _state.value.copy(breedList = list, isLoading = false) }
-//            }
+
         }
     }
 

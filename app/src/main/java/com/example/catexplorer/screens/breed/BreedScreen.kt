@@ -13,6 +13,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
 import com.example.catexplorer.navigation.DetailsNavScreen
@@ -35,6 +37,8 @@ import com.example.catexplorer.screens.breed.viewmodel.BreedSharedViewModel
 import com.example.catexplorer.screens.wallpapers.model.CatImage
 import com.example.catexplorer.shimmer.BreedShimmerItem
 import java.util.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @Composable
 fun BreedScreen(breedViewModel: BreedSharedViewModel, navController: NavController) {
@@ -42,6 +46,11 @@ fun BreedScreen(breedViewModel: BreedSharedViewModel, navController: NavControll
     val textState = remember { mutableStateOf(TextFieldValue("")) }
     val isLoading = false
 
+    LaunchedEffect(Unit) {
+        withContext(Dispatchers.IO) {
+            breedViewModel.getBreeds()
+        }
+    }
     Column {
         SearchView(state = textState)
 
@@ -52,13 +61,7 @@ fun BreedScreen(breedViewModel: BreedSharedViewModel, navController: NavControll
             navController,
             isLoading,
         )
-//        BreedList(
-//            uiState.value.breedList,
-//            textState,
-//            breedViewModel,
-//            navController,
-//            isLoading,
-//        )
+
     }
 }
 
