@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -21,6 +22,8 @@ import com.example.catexplorer.navigation.DetailsNavScreen
 import com.example.catexplorer.screens.favourite.model.GetFavourite
 import com.example.catexplorer.screens.favourite.model.GetFavouriteItem
 import com.example.catexplorer.screens.favourite.viewmodel.FavouriteSharedViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @Composable
 fun FavouriteScreen(
@@ -33,7 +36,11 @@ fun FavouriteScreen(
 
     val userId = mainViewModel.dataStoreData.value
 
-    favouriteSharedViewModel.getAllFavourite(userId)
+    LaunchedEffect(Unit) {
+        withContext(Dispatchers.IO) {
+            favouriteSharedViewModel.getAllFavourite(userId)
+        }
+    }
 
     if (favourites != null && favourites.isEmpty()) {
         EmptyFavourite(Modifier, navController)

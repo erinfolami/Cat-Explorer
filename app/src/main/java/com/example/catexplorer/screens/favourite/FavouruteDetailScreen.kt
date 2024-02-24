@@ -24,6 +24,8 @@ import com.example.catexplorer.multifab.MultiFloatingActionButton
 import com.example.catexplorer.screens.favourite.viewmodel.FavouriteSharedViewModel
 import com.example.catexplorer.screens.wallpapers.WallpaperCustomDialog
 import com.example.catexplorer.screens.wallpapers.model.PostFavourite
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @Composable
 fun FavouriteDetailScreen(
@@ -129,7 +131,11 @@ fun FavouriteDetailScreen(
         }
 
         if (imageId != null) {
-            favouriteSharedViewModel.getFavourite(userId, imageId)
+            LaunchedEffect(Unit) {
+                withContext(Dispatchers.IO) {
+                    favouriteSharedViewModel.getFavourite(userId, imageId)
+                }
+            }
         }
 
         if (showDialog.value) {

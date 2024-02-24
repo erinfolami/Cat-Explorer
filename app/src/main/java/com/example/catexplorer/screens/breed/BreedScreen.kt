@@ -28,7 +28,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
 import com.example.catexplorer.navigation.DetailsNavScreen
@@ -61,7 +60,6 @@ fun BreedScreen(breedViewModel: BreedSharedViewModel, navController: NavControll
             navController,
             isLoading,
         )
-
     }
 }
 

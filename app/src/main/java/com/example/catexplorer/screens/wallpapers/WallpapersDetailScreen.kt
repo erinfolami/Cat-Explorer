@@ -25,6 +25,8 @@ import com.example.catexplorer.multifab.MultiFabState
 import com.example.catexplorer.multifab.MultiFloatingActionButton
 import com.example.catexplorer.screens.wallpapers.model.PostFavourite
 import com.example.catexplorer.screens.wallpapers.viewmodel.WallpapersSharedViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @Composable
 fun WallpapersDetailScreen(
@@ -126,7 +128,11 @@ fun WallpapersDetailScreen(
         }
 
         if (imageId != null) {
-            wallpapersSharedViewModel.getFavourite(userId, imageId)
+            LaunchedEffect(Unit) {
+                withContext(Dispatchers.IO) {
+                    wallpapersSharedViewModel.getFavourite(userId, imageId)
+                }
+            }
         }
 
         if (showDialog.value) {

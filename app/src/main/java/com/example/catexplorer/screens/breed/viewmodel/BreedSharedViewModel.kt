@@ -13,12 +13,8 @@ import com.example.catexplorer.screens.wallpapers.model.CatImage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -70,7 +66,6 @@ class BreedSharedViewModel @Inject constructor(private val repository: CatsRepos
             withContext(Dispatchers.Main) {
                 uiState = uiState.copy(breedList = list, isLoading = false)
             }
-
         }
     }
 
