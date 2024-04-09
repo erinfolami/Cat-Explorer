@@ -4,6 +4,8 @@ Welcome to Cat Explorer! This is a fun and interactive app designed to provide u
 
 
 
+
+
 ### Features
 *  **Cat Facts:** Get access to a variety of fascinating facts about cats. Learn about their behavior, habits, and more. <br /> 
  
@@ -19,9 +21,14 @@ Welcome to Cat Explorer! This is a fun and interactive app designed to provide u
 
 
 
+
+
+
 ### Downloads
  Playstore installation is in progress, still in testing phase.
  You can simply clone the repository/ generate an apk file
+
+
 
 
 
