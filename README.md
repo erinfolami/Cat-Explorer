@@ -35,6 +35,16 @@ Welcome to Cat Explorer! This is a fun and interactive app designed to provide u
 
 
 
+### Technologies & Methodologies which used:
+Dagger Hilt
+Coroutines
+Clean Architecture
+MVVM Pattern
+Junit
+Mockito
+UI (Compose)
+
+
 ### Feedback
 I'd love to hear your thoughts on the app! If you have any suggestions for improvement or encounter any issues, please don't hesitate to reach out.
 
